@@ -5,26 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Location {
 
-    @SerializedName("LocalizedName")
+    @SerializedName("name")
     @Expose
-    private String cityName;
-    @SerializedName("Country")
+    public String cityName;
+
+    @SerializedName("country")
     @Expose
-    private locationCountry locationCountry;
+    public String countryName;
 
     public String getCityName() {
         return cityName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public com.example.android.weatherly.locationCountry getLocationCountry() {
-        return locationCountry;
-    }
-
-    public void setLocationCountry(com.example.android.weatherly.locationCountry locationCountry) {
-        this.locationCountry = locationCountry;
+    public String getCityAndCountryName() {
+        String cityAndCountry = cityName + ", " + countryName;
+        return cityAndCountry;
     }
 }

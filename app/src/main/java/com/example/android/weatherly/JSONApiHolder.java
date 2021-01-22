@@ -8,10 +8,8 @@ import retrofit2.http.Path;
 
 public interface JSONApiHolder {
 
-    @GET("currentconditions/v1/" + "{locationKey}" + "?apikey=JGIoaeeAvMuwL703QaUrLV8SWXr99j7D&details=true")
-    Call<List<CurrentWeatherList>> getPosts(@Path("locationKey") int locationKey);
+    @GET("v1/current.json?key=2fc725cddfc84683bc9160939212101&q=Almere")
+    Call<CurrentWeatherList> getPosts();
 
-    @GET("locations/v1/" + "{locationKey}" + "?apikey=JGIoaeeAvMuwL703QaUrLV8SWXr99j7D")
-    Call<Location> getLocation(@Path("locationKey") int locationKey);
 
 }

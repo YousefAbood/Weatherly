@@ -26,15 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "RetroFit";
     private JSONApiHolder JSONApiHolder;
+    public ArrayList<String> mCurrentTemperature = new ArrayList<>();
     public ArrayList<String> mCurrentWeatherCondition = new ArrayList<>();
-    public ArrayList<String> mTemperature = new ArrayList<>();
-    public ArrayList<String> mCountry = new ArrayList<>();
-    public ArrayList<String> mCity = new ArrayList<>();
-    public ArrayList<String> mWeatherIcon = new ArrayList<>();
-    public ArrayList<String> mRealFeelTemperature = new ArrayList<>();
+    public ArrayList<String> mDayOrNight = new ArrayList<>();
+    public ArrayList<String> mLocation = new ArrayList<>();
+    public ArrayList<String> mRealFeelTemp = new ArrayList<>();
     public ArrayList<String> mWindSpeed = new ArrayList<>();
     public ArrayList<String> mHumidity = new ArrayList<>();
-    public int locationKey = 247498;
+    public ArrayList<String> mCurrentWeatherConditionIcon = new ArrayList<>();
     public RecyclerView recyclerView;
 
 
@@ -49,15 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://dataservice.accuweather.com/")
+                .baseUrl("http://api.weatherapi.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
         JSONApiHolder = retrofit.create(JSONApiHolder.class);
 
+        initRecyclerViewCurrentConditions();
+
         currentWeatherCondition();
-        currentLocation();
+
+
 
     }
 
@@ -69,37 +71,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerViewCurrentConditions() {
         RecyclerView recyclerView = findViewById(R.id.mainActivityRecyclerView);
-        currentWeatherConditionsDataAdapter adapter = new currentWeatherConditionsDataAdapter(this, mCurrentWeatherCondition, mCountry, mCity);
+        currentWeatherConditionsDataAdapter adapter = new currentWeatherConditionsDataAdapter(this, mCurrentTemperature, mCurrentWeatherCondition, mDayOrNight, mLocation, mRealFeelTemp, mWindSpeed, mHumidity, mCurrentWeatherConditionIcon);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void currentWeatherCondition() {
-        Call<List<CurrentWeatherList>> call = JSONApiHolder.getPosts(locationKey);
+        Call<CurrentWeatherList> call = JSONApiHolder.getPosts();
 
-        call.enqueue(new Callback<List<CurrentWeatherList>>() {
-            public void onResponse(Call<List<CurrentWeatherList>> call, Response<List<CurrentWeatherList>> response) {
+        call.enqueue(new Callback<CurrentWeatherList>() {
+            public void onResponse(Call<CurrentWeatherList> call, Response<CurrentWeatherList> response) {
                 if (!response.isSuccessful()) {
                     Log.d(TAG, "CurrentWeatherConditionCode: " + response.code());
                     return;
                 }
 
-                List<CurrentWeatherList> currentWeatherLists = response.body();
+                CurrentWeatherList currentWeatherLists = response.body();
 
-                for (CurrentWeatherList post : currentWeatherLists) {
-                    mCurrentWeatherCondition.add(post.getWind().getSpeed().getMetric().getValue());
-                    mTemperature.add(post.getTemperature().getMetric().getValue());
-
-
-                }
+                mCurrentTemperature.add(currentWeatherLists.getCurrent().getTemperatureCelcius());
+                Log.d(TAG, "onResponse: " +  currentWeatherLists.getCurrent().getTemperatureCelcius());
 
                 initRecyclerViewCurrentConditions();
 
-
-
             }
 
-            public void onFailure(Call<List<CurrentWeatherList>> call, Throwable t) {
+            public void onFailure(Call<CurrentWeatherList> call, Throwable t) {
                 if (t instanceof IOException) {
                     Log.e(TAG, "onFailure: ");
                 } else {
@@ -108,35 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void currentLocation() {
-        Call<Location> call = JSONApiHolder.getLocation(locationKey);
-
-        call.enqueue(new Callback<Location>() {
-            public void onResponse(Call<Location> call, Response<Location> response) {
-                if (!response.isSuccessful()) {
-                    Log.d(TAG, "LocationCode: " + response.code());
-                    return;
-                }
-
-                Location locationsRes = response.body();
-                mCountry.add(locationsRes.getLocationCountry().getCountryName());
-                mCity.add(locationsRes.getCityName());
-
-                initRecyclerViewCurrentConditions();
-            }
-
-            public void onFailure(Call<Location> call, Throwable t) {
-                if (t instanceof IOException) {
-                    Log.e(TAG, "onFailure: ");
-                } else {
-
-                }
-                Log.d(TAG, "LocationCode: " + t.getMessage());
-            }
-        });
-
     }
 
 }

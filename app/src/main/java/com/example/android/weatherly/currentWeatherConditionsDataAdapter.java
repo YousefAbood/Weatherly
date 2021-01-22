@@ -13,23 +13,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<currentWeatherConditionsDataAdapter.ViewHolder>{
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<currentWeatherConditionsDataAdapter.ViewHolder> {
 
     private static final String TAG = "currentWeatherAdapter";
     private Context context;
-    public  ArrayList<String> mCurrentWeatherConditions;
-    public  ArrayList<String> mCountry;
-    public  ArrayList<String> mCity;
-    Location location = new Location();
+    public ArrayList<String> mCurrentTemperature;
+    public ArrayList<String> mCurrentWeatherCondition;
+    public ArrayList<String> mDayOrNight;
+    public ArrayList<String> mLocation;
+    public ArrayList<String> mRealFeelTemp;
+    public ArrayList<String> mWindSpeed;
+    public ArrayList<String> mHumidity;
+    public ArrayList<String> mCurrentWeatherConditionIcon;
 
 
-
-
-    public currentWeatherConditionsDataAdapter(Context context, ArrayList<String> mCurrentWeatherConditions, ArrayList<String> mCountry, ArrayList<String> mCity) {
+    public currentWeatherConditionsDataAdapter(Context context, ArrayList<String> mCurrentTemperature, ArrayList<String> mCurrentWeatherCondition, ArrayList<String> mDayOrNight, ArrayList<String> mLocation, ArrayList<String> mRealFeelTemp, ArrayList<String> mWindSpeed, ArrayList<String> mHumidity, ArrayList<String> mCurrentWeatherConditionIcon) {
         this.context = context;
-        this.mCurrentWeatherConditions = mCurrentWeatherConditions;
-        this.mCountry = mCountry;
-        this.mCity = mCity;
+        this.mCurrentTemperature = mCurrentTemperature;
+        this.mCurrentWeatherCondition = mCurrentTemperature;
+        this.mDayOrNight = mCurrentTemperature;
+        this.mLocation = mCurrentTemperature;
+        this.mRealFeelTemp = mCurrentTemperature;
+        this.mWindSpeed = mCurrentTemperature;
+        this.mHumidity = mCurrentTemperature;
+        this.mCurrentWeatherConditionIcon = mCurrentTemperature;
     }
 
     @NonNull
@@ -44,10 +53,15 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        holder.current_weather_conditions.setText(mCurrentWeatherConditions.get(position));
+        holder.currentTemperature.setText(mCurrentTemperature.get(position));
+        holder.weatherCondition.setText(mCurrentTemperature.get(position));
+        holder.day_or_night.setText(mCurrentTemperature.get(position));
+        holder.location.setText(mCurrentTemperature.get(position));
+        holder.real_feel_temp.setText(mCurrentTemperature.get(position));
+        holder.wind_speed.setText(mCurrentTemperature.get(position));
+        holder.humidity.setText(mCurrentTemperature.get(position));
 
 
-        Log.d(TAG, "onBindViewHolder: " + mCurrentWeatherConditions.get(position));
 
 
 
@@ -62,19 +76,28 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
 
     @Override
     public int getItemCount() {
-        return mCurrentWeatherConditions.size();
+        return mCurrentTemperature.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView current_weather_conditions;
+        TextView currentTemperature, weatherCondition, day_or_night, location, real_feel_temp, wind_speed, humidity;
+        CircleImageView current_weather_condition_icon;
         ConstraintLayout parentLayoutCurrentWeatherConditions;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Connecting ID of the Current Weather Conditions Layout components with the Adapter to inflate them
-            current_weather_conditions = itemView.findViewById(R.id.currentTemperature);
             parentLayoutCurrentWeatherConditions = itemView.findViewById(R.id.parentLayoutCurrentWeatherConditions);
+            currentTemperature = itemView.findViewById(R.id.currentTemperature);
+            weatherCondition = itemView.findViewById(R.id.weatherCondition);
+            day_or_night = itemView.findViewById(R.id.day_or_night);
+            location = itemView.findViewById(R.id.location);
+            real_feel_temp = itemView.findViewById(R.id.real_feel_temp);
+            wind_speed = itemView.findViewById(R.id.wind_speed);
+            humidity = itemView.findViewById(R.id.humidity);
+            current_weather_condition_icon = itemView.findViewById(R.id.current_weather_condition_icon);
         }
     }
 
