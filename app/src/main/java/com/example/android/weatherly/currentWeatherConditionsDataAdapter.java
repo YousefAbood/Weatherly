@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,13 +34,13 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
     public currentWeatherConditionsDataAdapter(Context context, ArrayList<String> mCurrentTemperature, ArrayList<String> mCurrentWeatherCondition, ArrayList<String> mDayOrNight, ArrayList<String> mLocation, ArrayList<String> mRealFeelTemp, ArrayList<String> mWindSpeed, ArrayList<String> mHumidity, ArrayList<String> mCurrentWeatherConditionIcon) {
         this.context = context;
         this.mCurrentTemperature = mCurrentTemperature;
-        this.mCurrentWeatherCondition = mCurrentTemperature;
-        this.mDayOrNight = mCurrentTemperature;
-        this.mLocation = mCurrentTemperature;
-        this.mRealFeelTemp = mCurrentTemperature;
-        this.mWindSpeed = mCurrentTemperature;
-        this.mHumidity = mCurrentTemperature;
-        this.mCurrentWeatherConditionIcon = mCurrentTemperature;
+        this.mCurrentWeatherCondition = mCurrentWeatherCondition;
+        this.mDayOrNight = mDayOrNight;
+        this.mLocation = mLocation;
+        this.mRealFeelTemp = mRealFeelTemp;
+        this.mWindSpeed = mWindSpeed;
+        this.mHumidity = mHumidity;
+        this.mCurrentWeatherConditionIcon = mCurrentWeatherConditionIcon;
     }
 
     @NonNull
@@ -53,13 +55,19 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
+        Glide.with(context)
+                .asBitmap()
+                .load(mCurrentWeatherConditionIcon.get((position)))
+                .into(holder.current_weather_condition_icon);
+
+
         holder.currentTemperature.setText(mCurrentTemperature.get(position));
-        holder.weatherCondition.setText(mCurrentTemperature.get(position));
-        holder.day_or_night.setText(mCurrentTemperature.get(position));
-        holder.location.setText(mCurrentTemperature.get(position));
-        holder.real_feel_temp.setText(mCurrentTemperature.get(position));
-        holder.wind_speed.setText(mCurrentTemperature.get(position));
-        holder.humidity.setText(mCurrentTemperature.get(position));
+        holder.weatherCondition.setText(mCurrentWeatherCondition.get(position));
+        holder.day_or_night.setText(mDayOrNight.get(position));
+        holder.location.setText(mLocation.get(position));
+        holder.real_feel_temp.setText(mRealFeelTemp.get(position));
+        holder.wind_speed.setText(mWindSpeed.get(position));
+        holder.humidity.setText(mHumidity.get(position));
 
 
 
@@ -93,7 +101,7 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
             currentTemperature = itemView.findViewById(R.id.currentTemperature);
             weatherCondition = itemView.findViewById(R.id.weatherCondition);
             day_or_night = itemView.findViewById(R.id.day_or_night);
-            location = itemView.findViewById(R.id.location);
+            location = itemView.findViewById(R.id.locationAPI);
             real_feel_temp = itemView.findViewById(R.id.real_feel_temp);
             wind_speed = itemView.findViewById(R.id.wind_speed);
             humidity = itemView.findViewById(R.id.humidity);

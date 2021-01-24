@@ -41,6 +41,11 @@ public class Current {
     @Expose
     public int dayOrNight;
 
+    @SerializedName("date")
+    @Expose
+    public String date;
+
+
     public String getDayOrNight() {
         String sDayOrNight;
         if(dayOrNight == 1) {
@@ -62,12 +67,12 @@ public class Current {
     }
 
     public String getFeelsLikeCelcius() {
-        String temperatureCel = String.valueOf(feelsLikeCelcius) + " °C";
+        String temperatureCel = "Feels like " + String.valueOf(feelsLikeCelcius) + " °C";
         return temperatureCel;
     }
 
     public String getFeelsLikeFahrenheit() {
-        String temperatureCel = String.valueOf(feelsLikeFahrenheit) + " °F";
+        String temperatureCel = "Feels like " + String.valueOf(feelsLikeFahrenheit) + " °F";
         return temperatureCel;
     }
 

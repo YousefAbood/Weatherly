@@ -18,6 +18,7 @@ public class Condition {
     }
 
     public String getImageIconURL() {
-        return imageIconURL;
+        String imageIconImproved = "https://" + imageIconURL;
+        return imageIconImproved;
     }
 }

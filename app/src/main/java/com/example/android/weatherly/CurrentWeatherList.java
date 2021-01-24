@@ -3,24 +3,24 @@ package com.example.android.weatherly;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CurrentWeatherList {
 
     @SerializedName("location")
     @Expose
-    private Location location;
+    private locationAPI locationAPI;
     @SerializedName("current")
     @Expose
     private Current current;
+    @SerializedName("forecast")
+    @Expose
+    private Forecast forecast;
 
-    public Location getLocation() {
-        return location;
+    public locationAPI getLocationAPI() {
+        return locationAPI;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationAPI(locationAPI locationAPI) {
+        this.locationAPI = locationAPI;
     }
 
     public Current getCurrent() {
@@ -31,4 +31,11 @@ public class CurrentWeatherList {
         this.current = current;
     }
 
+    public Forecast getForecast() {
+        return forecast;
+    }
+
+    public void setForecast(Forecast forecast) {
+        this.forecast = forecast;
+    }
 }

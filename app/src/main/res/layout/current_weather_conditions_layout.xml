@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentLayoutCurrentWeatherConditions"
-    android:background="#e6d1c8"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#e6d1c8">
 
 
     <TextView
@@ -16,31 +16,31 @@
         android:layout_marginLeft="45dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/averia_gruesa_libre"
-        android:inputType="numberSigned|text|numberDecimal"
-        android:text="28 C"
         android:textSize="40sp"
+        android:text="28 C"
+        android:inputType="numberSigned|text|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/current_weather_condition_icon" />
+
     <TextView
         android:id="@+id/weatherCondition"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/averia_gruesa_libre"
-        android:inputType="numberSigned|text|numberDecimal"
         android:text="Sunny"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/day_or_night"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/current_weather_condition_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/current_weather_condition_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginStart="75dp"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="16dp"
@@ -60,18 +60,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:text="Day"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/currentTemperature"
         app:layout_constraintTop_toTopOf="@+id/currentTemperature" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/locationAPI"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:text="Almere-Stad, Netherlands"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/currentTemperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/currentTemperature" />
@@ -82,7 +86,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:text="Feels like 30°"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/wind_speed"
         app:layout_constraintHorizontal_bias="0.5"
@@ -93,7 +99,9 @@
         android:id="@+id/wind_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:text="34 km/h"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/humidity"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/real_feel_temp"
@@ -103,7 +111,9 @@
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:text="68%"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/wind_speed"
