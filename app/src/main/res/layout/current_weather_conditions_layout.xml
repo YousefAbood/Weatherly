@@ -4,108 +4,233 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentLayoutCurrentWeatherConditions"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#e6d1c8">
+    android:layout_height="match_parent"
+    android:background="@drawable/transparenttoolbar">
 
-
-    <TextView
-        android:id="@+id/currentTemperature"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/averia_gruesa_libre"
-        android:textSize="40sp"
-        android:text="28 C"
-        android:inputType="numberSigned|text|numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_weather_condition_icon" />
 
     <TextView
         android:id="@+id/weatherCondition"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="65dp"
         android:fontFamily="@font/averia_gruesa_libre"
         android:text="Sunny"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/day_or_night"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/current_weather_condition_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="24sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentTemperature" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/current_weather_condition_icon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintBottom_toTopOf="@+id/currentTemperature"
-        app:layout_constraintEnd_toStartOf="@+id/weatherCondition"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/real_feel_temp"
+        app:layout_constraintStart_toEndOf="@+id/weatherCondition" />
+
+    <TextView
+        android:id="@+id/day_or_night"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Day"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toTopOf="@+id/locationAPI"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/day_or_night"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:fontFamily="@font/averia_gruesa_libre"
-        android:text="Day"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/currentTemperature"
-        app:layout_constraintTop_toTopOf="@+id/currentTemperature" />
-
-    <TextView
         android:id="@+id/locationAPI"
-        android:layout_width="0dp"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/averia_gruesa_libre"
         android:text="Almere-Stad, Netherlands"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/currentTemperature"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/currentTemperature" />
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toTopOf="@+id/currentTemperature"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/real_feel_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/averia_gruesa_libre"
         android:text="Feels like 30°"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/wind_speed"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="16sp"
+        android:textColor="#f5e9dc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentTemperature" />
+        app:layout_constraintTop_toBottomOf="@+id/weatherCondition" />
+
+    <TextView
+        android:id="@+id/sunsetWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginLeft="130dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Sunset"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/Sunrise_word"
+        app:layout_constraintStart_toEndOf="@+id/Sunrise_word" />
+
+    <TextView
+        android:id="@+id/precipitationWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Precipitation"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Sunrise_word" />
+
+    <TextView
+        android:id="@+id/Sunrise_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Sunrise"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/real_feel_temp" />
+
+    <TextView
+        android:id="@+id/humidityWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Humidity"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/precipitationWord"
+        app:layout_constraintStart_toStartOf="@+id/sunsetWord" />
+
+    <TextView
+        android:id="@+id/pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Pressure"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/windSpeed"
+        app:layout_constraintStart_toStartOf="@+id/sunsetWord" />
+
+    <TextView
+        android:id="@+id/windSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="65dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="Wind"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/precipitationWord" />
+
+    <TextView
+        android:id="@+id/maxTempCurrentWeatherConditionsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="32C"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/maxTempIcon"
+        app:layout_constraintStart_toEndOf="@+id/maxTempIcon" />
+
+    <TextView
+        android:id="@+id/minTempCurrentWeatherConditionsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="18C"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/minTempIcon"
+        app:layout_constraintStart_toEndOf="@+id/minTempIcon" />
+
+    <ImageView
+        android:id="@+id/minTempIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/maxTempCurrentWeatherConditionsLayout"
+        app:layout_constraintStart_toEndOf="@+id/maxTempCurrentWeatherConditionsLayout"
+        app:srcCompat="@drawable/downicon" />
+
+    <ImageView
+        android:id="@+id/maxTempIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentTemperature"
+        app:srcCompat="@drawable/upicon" />
+
+    <TextView
+        android:id="@+id/currentTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="95dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:inputType="numberSigned|text|numberDecimal"
+        android:text="28 C"
+        android:textSize="64sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/wind_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/averia_gruesa_libre"
         android:text="34 km/h"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/humidity"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/real_feel_temp"
-        app:layout_constraintTop_toTopOf="@+id/real_feel_temp" />
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/windSpeed" />
 
     <TextView
         android:id="@+id/humidity"
@@ -114,10 +239,59 @@
         android:fontFamily="@font/averia_gruesa_libre"
         android:text="68%"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/wind_speed"
-        app:layout_constraintTop_toTopOf="@+id/wind_speed" />
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/precipitationNumber"
+        app:layout_constraintStart_toStartOf="@+id/sunsetWord" />
+
+    <TextView
+        android:id="@+id/precipitationNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="10%"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/precipitationWord" />
+
+    <TextView
+        android:id="@+id/pressureHPA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="1009 hPa"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/wind_speed"
+        app:layout_constraintStart_toStartOf="@+id/sunsetWord" />
+
+    <TextView
+        android:id="@+id/sunriseTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="3:55 am"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Sunrise_word" />
+
+    <TextView
+        android:id="@+id/sunsetTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:text="9:13 pm"
+        android:textSize="18sp"
+        android:textColor="#f5e9dc"
+        app:layout_constraintBottom_toBottomOf="@+id/sunriseTime"
+        app:layout_constraintStart_toStartOf="@+id/sunsetWord" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

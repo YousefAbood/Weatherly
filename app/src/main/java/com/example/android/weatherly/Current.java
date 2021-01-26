@@ -37,6 +37,14 @@ public class Current {
     @Expose
     public int humidity;
 
+    @SerializedName("pressure_mb")
+    @Expose
+    public Double pressureMB;
+
+    @SerializedName("precip_mm")
+    @Expose
+    public Double precipMM;
+
     @SerializedName("is_day")
     @Expose
     public int dayOrNight;
@@ -57,22 +65,22 @@ public class Current {
     }
 
     public String getTemperatureCelcius() {
-        String temperatureCel = String.valueOf(temperatureCelcius) + " °C";
+        String temperatureCel = temperatureCelcius + " °C";
         return temperatureCel;
     }
 
     public String getTemperatureFahrenheit() {
-        String temperatureCel = String.valueOf(temperatureFahrenheit) + " °F";
+        String temperatureCel = temperatureFahrenheit + " °F";
         return temperatureCel;
     }
 
     public String getFeelsLikeCelcius() {
-        String temperatureCel = "Feels like " + String.valueOf(feelsLikeCelcius) + " °C";
+        String temperatureCel = "Feels like " + feelsLikeCelcius + " °C";
         return temperatureCel;
     }
 
     public String getFeelsLikeFahrenheit() {
-        String temperatureCel = "Feels like " + String.valueOf(feelsLikeFahrenheit) + " °F";
+        String temperatureCel = "Feels like " + feelsLikeFahrenheit + " °F";
         return temperatureCel;
     }
 
@@ -81,17 +89,34 @@ public class Current {
     }
 
     public String getWindSpeedMPH() {
-        String windSpeed = String.valueOf(windSpeedMPH) + " mph";
+        String windSpeed = windSpeedMPH + " mph";
         return windSpeed;
     }
 
     public String getWindSpeedKPH() {
-        String windSpeed = String.valueOf(windSpeedMPH) + " km/h";
+        String windSpeed = windSpeedMPH + " km/h";
         return windSpeed;
     }
 
     public String getHumidity() {
-        String humidityString = String.valueOf(humidity) + "%";
+        String humidityString = humidity + "%";
         return humidityString;
+    }
+
+    public String getPressureMB() {
+        int pressureMBInteger = (int) Math.round(pressureMB);
+        String pressureMBString = pressureMBInteger + " hPa";
+        return pressureMBString;
+    }
+
+    public String getPrecipMM() {
+        Double precipMMDouble = precipMM * 100;
+        int precipMMInteger = (int) Math.round(precipMMDouble);
+        String precipMMString = precipMMInteger + "%";
+        return precipMMString;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

@@ -21,27 +21,87 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
 
     private static final String TAG = "currentWeatherAdapter";
     private Context context;
-    public ArrayList<String> mCurrentTemperature;
-    public ArrayList<String> mCurrentWeatherCondition;
     public ArrayList<String> mDayOrNight;
     public ArrayList<String> mLocation;
+    public ArrayList<String> mCurrentTemperature;
+    public ArrayList<String> mMaxTemperature;
+    public ArrayList<String> mMinTemperature;
+    public ArrayList<String> mCurrentWeatherCondition;
     public ArrayList<String> mRealFeelTemp;
-    public ArrayList<String> mWindSpeed;
-    public ArrayList<String> mHumidity;
     public ArrayList<String> mCurrentWeatherConditionIcon;
+    public ArrayList<String> mSunriseTime;
+    public ArrayList<String> mSunsetTime;
+    public ArrayList<String> mPrecipitation;
+    public ArrayList<String> mHumidity;
+    public ArrayList<String> mWindSpeed;
+    public ArrayList<String> mPressure;
 
 
-    public currentWeatherConditionsDataAdapter(Context context, ArrayList<String> mCurrentTemperature, ArrayList<String> mCurrentWeatherCondition, ArrayList<String> mDayOrNight, ArrayList<String> mLocation, ArrayList<String> mRealFeelTemp, ArrayList<String> mWindSpeed, ArrayList<String> mHumidity, ArrayList<String> mCurrentWeatherConditionIcon) {
+//    public currentWeatherConditionsDataAdapter(Context context,
+//                                               ArrayList<String> mDayOrNight,
+//                                               ArrayList<String> mLocation,
+//                                               ArrayList<String> mCurrentTemperature,
+//                                               ArrayList<String> mMaxTemperature,
+//                                               ArrayList<String> mMinTemperature,
+//                                               ArrayList<String> mCurrentWeatherCondition,
+//                                               ArrayList<String> mRealFeelTemp,
+//                                               ArrayList<String> mCurrentWeatherConditionIcon,
+//                                               ArrayList<String> mSunriseTime,
+//                                               ArrayList<String> mSunsetTime,
+//                                               ArrayList<String> mPrecipitation,
+//                                               ArrayList<String> mHumidity,
+//                                               ArrayList<String> mWindSpeed,
+//                                               ArrayList<String> mPressure) {
+//        this.context = context;
+//        this.mDayOrNight = mDayOrNight;
+//        this.mLocation = mLocation;
+//        this.mCurrentTemperature = mCurrentTemperature;
+//        this.mMaxTemperature = mMaxTemperature;
+//        this.mMinTemperature = mMinTemperature;
+//        this.mCurrentWeatherCondition = mCurrentWeatherCondition;
+//        this.mRealFeelTemp = mRealFeelTemp;
+//        this.mCurrentWeatherConditionIcon = mCurrentWeatherConditionIcon;
+//        this.mSunriseTime = mSunriseTime;
+//        this.mSunsetTime = mSunsetTime;
+//        this.mPrecipitation = mPrecipitation;
+//        this.mHumidity = mHumidity;
+//        this.mWindSpeed = mWindSpeed;
+//        this.mPressure = mPressure;
+//    }
+
+    public currentWeatherConditionsDataAdapter(Context context,
+                                               ArrayList<String> mDayOrNight,
+                                               ArrayList<String> mLocationCurrentWeatherConditions,
+                                               ArrayList<String> mCurrentTemperature,
+                                               ArrayList<String> mMaxTemperature,
+                                               ArrayList<String> mMinTemperature,
+                                               ArrayList<String> mCurrentWeatherCondition,
+                                               ArrayList<String> mCurrentWeatherConditionIcon,
+                                               ArrayList<String> mRealFeelTemp,
+                                               ArrayList<String> mSunriseTime,
+                                               ArrayList<String> mSunsetTime,
+                                               ArrayList<String> mPrecipitation,
+                                               ArrayList<String> mHumidity,
+                                               ArrayList<String> mWindSpeed,
+                                               ArrayList<String> mPressure) {
+
         this.context = context;
-        this.mCurrentTemperature = mCurrentTemperature;
-        this.mCurrentWeatherCondition = mCurrentWeatherCondition;
         this.mDayOrNight = mDayOrNight;
-        this.mLocation = mLocation;
+        this.mLocation = mLocationCurrentWeatherConditions;
+        this.mCurrentTemperature = mCurrentTemperature;
+        this.mMaxTemperature = mMaxTemperature;
+        this.mMinTemperature = mMinTemperature;
+        this.mCurrentWeatherCondition = mCurrentWeatherCondition;
         this.mRealFeelTemp = mRealFeelTemp;
-        this.mWindSpeed = mWindSpeed;
-        this.mHumidity = mHumidity;
         this.mCurrentWeatherConditionIcon = mCurrentWeatherConditionIcon;
+        this.mSunriseTime = mSunriseTime;
+        this.mSunsetTime = mSunsetTime;
+        this.mPrecipitation = mPrecipitation;
+        this.mHumidity = mHumidity;
+        this.mWindSpeed = mWindSpeed;
+        this.mPressure = mPressure;
     }
+
 
     @NonNull
     @Override
@@ -61,13 +121,23 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
                 .into(holder.current_weather_condition_icon);
 
 
-        holder.currentTemperature.setText(mCurrentTemperature.get(position));
-        holder.weatherCondition.setText(mCurrentWeatherCondition.get(position));
         holder.day_or_night.setText(mDayOrNight.get(position));
         holder.location.setText(mLocation.get(position));
+        holder.currentTemperature.setText(mCurrentTemperature.get(position));
+        Log.d(TAG, "onBindViewHolder: " + mMaxTemperature.size());
+        holder.maxTemperature.setText(mMaxTemperature.get(position));
+        holder.minTemperature.setText(mMinTemperature.get(position));
+        holder.weatherCondition.setText(mCurrentWeatherCondition.get(position));
         holder.real_feel_temp.setText(mRealFeelTemp.get(position));
-        holder.wind_speed.setText(mWindSpeed.get(position));
+
+        // -----
+        holder.sunrise.setText(mSunriseTime.get(position));
+        holder.sunset.setText(mSunsetTime.get(position));
+        holder.precipitation.setText(mPrecipitation.get(position));
         holder.humidity.setText(mHumidity.get(position));
+        holder.wind_speed.setText(mWindSpeed.get(position));
+        holder.pressure.setText(mPressure.get(position));
+
 
 
 
@@ -90,7 +160,7 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView currentTemperature, weatherCondition, day_or_night, location, real_feel_temp, wind_speed, humidity;
+        TextView currentTemperature, weatherCondition, day_or_night, location, real_feel_temp, minTemperature, maxTemperature, sunrise, sunset, precipitation, humidity, wind_speed, pressure;
         CircleImageView current_weather_condition_icon;
         ConstraintLayout parentLayoutCurrentWeatherConditions;
 
@@ -98,14 +168,25 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
             super(itemView);
             // Connecting ID of the Current Weather Conditions Layout components with the Adapter to inflate them
             parentLayoutCurrentWeatherConditions = itemView.findViewById(R.id.parentLayoutCurrentWeatherConditions);
-            currentTemperature = itemView.findViewById(R.id.currentTemperature);
-            weatherCondition = itemView.findViewById(R.id.weatherCondition);
             day_or_night = itemView.findViewById(R.id.day_or_night);
             location = itemView.findViewById(R.id.locationAPI);
+            currentTemperature = itemView.findViewById(R.id.currentTemperature);
+            maxTemperature = itemView.findViewById(R.id.maxTempCurrentWeatherConditionsLayout);
+            minTemperature = itemView.findViewById(R.id.minTempCurrentWeatherConditionsLayout);
+            weatherCondition = itemView.findViewById(R.id.weatherCondition);
             real_feel_temp = itemView.findViewById(R.id.real_feel_temp);
+            current_weather_condition_icon = itemView.findViewById(R.id.current_weather_condition_icon);
+
+            // -----
+
+            sunrise = itemView.findViewById(R.id.sunriseTime);
+            sunset = itemView.findViewById(R.id.sunsetTime);
+            precipitation = itemView.findViewById(R.id.precipitationNumber);
+            humidity = itemView.findViewById(R.id.humidity);
+            wind_speed = itemView.findViewById(R.id.wind_speed);
+            pressure = itemView.findViewById(R.id.pressureHPA);
             wind_speed = itemView.findViewById(R.id.wind_speed);
             humidity = itemView.findViewById(R.id.humidity);
-            current_weather_condition_icon = itemView.findViewById(R.id.current_weather_condition_icon);
         }
     }
 

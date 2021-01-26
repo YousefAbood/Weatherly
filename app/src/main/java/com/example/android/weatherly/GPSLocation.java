@@ -194,6 +194,10 @@ public class GPSLocation extends Service implements LocationListener {
                 System.exit(0);
             }
         });
+
+        alertDialog.setCancelable(false);
+
+
         alertDialog.show();
     }
 
