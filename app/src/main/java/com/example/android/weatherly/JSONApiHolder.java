@@ -16,5 +16,8 @@ public interface JSONApiHolder {
     @GET("v1/forecast.json?key=2fc725cddfc84683bc9160939212101")
     Call<GetForecast> getForecast(@Query("q") String longLat, @Query("days") int days);
 
+    @GET("v1/search.json?key=2fc725cddfc84683bc9160939212101&q=Almere")
+    Call<List<searchLocation>> getSearchLocation();
+
 
 }
