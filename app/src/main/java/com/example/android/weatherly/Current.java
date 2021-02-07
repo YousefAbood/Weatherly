@@ -49,7 +49,7 @@ public class Current {
     @Expose
     public int dayOrNight;
 
-    @SerializedName("date")
+    @SerializedName("last_updated")
     @Expose
     public String date;
 
@@ -65,22 +65,22 @@ public class Current {
     }
 
     public String getTemperatureCelcius() {
-        String temperatureCel = temperatureCelcius + " °C";
+        String temperatureCel = temperatureCelcius + "°";
         return temperatureCel;
     }
 
     public String getTemperatureFahrenheit() {
-        String temperatureCel = temperatureFahrenheit + " °F";
+        String temperatureCel = temperatureFahrenheit + "°";
         return temperatureCel;
     }
 
     public String getFeelsLikeCelcius() {
-        String temperatureCel = "Feels like " + feelsLikeCelcius + " °C";
+        String temperatureCel = "Feels like " + feelsLikeCelcius + "°";
         return temperatureCel;
     }
 
     public String getFeelsLikeFahrenheit() {
-        String temperatureCel = "Feels like " + feelsLikeFahrenheit + " °F";
+        String temperatureCel = "Feels like " + feelsLikeFahrenheit + "°";
         return temperatureCel;
     }
 

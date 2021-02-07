@@ -1,9 +1,11 @@
 package com.example.android.weatherly;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,8 +17,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,12 +70,23 @@ public class homeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        // TextView
+        dayDate = (TextView) rootView.findViewById(R.id.day_date);
+
+        // Toolbar Part
+//        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.homeToolbar);
+//        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        activity.setSupportActionBar(toolbar);
+//        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        // Swipe to Refresh Layout
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -89,6 +104,10 @@ public class homeFragment extends Fragment {
 
         return rootView;
     }
+
+
+
+
 
     // Main Activity
 
@@ -128,6 +147,9 @@ public class homeFragment extends Fragment {
 
     // Swipe To Refresh
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    // TextView
+    TextView dayDate;
 
     private void initRecyclerViewCurrentConditions() {
         RecyclerView recyclerView = getView().findViewById(R.id.currentConditionsRecyclerView);
@@ -175,6 +197,8 @@ public class homeFragment extends Fragment {
 
 
 
+                dayDate.setText(getDayOfWeek(currentWeatherLists.getCurrent().getDate()));
+                dayDate.append(getMonth(currentWeatherLists.getCurrent().getDate()));
 
                 mDayOrNight.add(currentWeatherLists.getCurrent().getDayOrNight());
                 mLocationCurrentWeatherConditions.add(currentWeatherLists.getLocationAPI().getCityAndCountryName());
@@ -287,13 +311,13 @@ public class homeFragment extends Fragment {
         String dayS = date.substring(8, 10);
 
         String[] weekDays = new String[]{
-                "Sunday",
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat"
         };
 
         int day = Integer.parseInt(dayS);
@@ -306,6 +330,38 @@ public class homeFragment extends Fragment {
         String dayOfWeekString = weekDays[dayOfWeekInt - 1];
 
         return dayOfWeekString;
+    }
+
+    public String getMonth(String date) {
+        String yearS = date.substring(0, 4);
+        String monthS = date.substring(5, 7);
+        String dayS = date.substring(8, 10);
+
+        String[] months = new String[]{
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+        };
+
+        int day = Integer.parseInt(dayS);
+        int month = Integer.parseInt(monthS);
+        int year = Integer.parseInt(yearS);
+
+        Calendar c = Calendar.getInstance();
+        c.set(year, month - 1, day);
+        int monthOfYearInt = c.get(Calendar.MONTH);
+        String monthOfYearString = ", " + months[monthOfYearInt] + " " + dayS;
+
+        return monthOfYearString;
     }
 
 

@@ -38,32 +38,32 @@ public class Day {
     public Condition condition;
 
     public String getMaxTempC() {
-        String temperatureCel = String.valueOf(maxTempC) + " °C";
+        String temperatureCel = String.valueOf(maxTempC) + "°";
         return temperatureCel;
     }
 
     public String getMaxTempF() {
-        String temperatureCel = String.valueOf(maxTempF) + " °F";
+        String temperatureCel = String.valueOf(maxTempF) + "°";
         return temperatureCel;
     }
 
     public String getMinTempC() {
-        String temperatureCel = String.valueOf(minTempC) + " °C";
+        String temperatureCel = String.valueOf(minTempC) + "°";
         return temperatureCel;
     }
 
     public String getMinTempF() {
-        String temperatureCel = String.valueOf(maxTempF) + " °F";
+        String temperatureCel = String.valueOf(maxTempF) + "°";
         return temperatureCel;
     }
 
     public String getAvgTempC() {
-        String temperatureCel = String.valueOf(avgTempC) + " °C";
+        String temperatureCel = String.valueOf(avgTempC) + "°";
         return temperatureCel;
     }
 
     public String getAvgTempF() {
-        String temperatureCel = String.valueOf(avgTempF) + " °F";
+        String temperatureCel = String.valueOf(avgTempF) + "°";
         return temperatureCel;
     }
 

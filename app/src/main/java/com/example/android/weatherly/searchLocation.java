@@ -21,6 +21,15 @@ public class searchLocation {
     @Expose
     public String searchLocationCountry;
 
+    @SerializedName("lat")
+    @Expose
+    public double latitudeSearchLocation;
+
+    @SerializedName("lon")
+    @Expose
+    public double longitudeSearchLocation;
+
+
 
     public int getSearchLocationId() {
         return searchLocationId;
@@ -36,5 +45,15 @@ public class searchLocation {
 
     public String getSearchLocationCountry() {
         return searchLocationCountry;
+    }
+
+    public String getLatitudeSearchLocation() {
+        String slatitudeSearchLocation = "" + latitudeSearchLocation;
+        return slatitudeSearchLocation;
+    }
+
+    public String getLongitudeSearchLocation() {
+        String slongitudeSearchLocation = "" + longitudeSearchLocation;
+        return slongitudeSearchLocation;
     }
 }
