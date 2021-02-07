@@ -1,12 +1,9 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.ui.main.home;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -16,11 +13,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.android.weatherly.R;
+import com.example.android.weatherly.data.model.CurrentWeatherList;
+import com.example.android.weatherly.app.location.GPSLocation;
+import com.example.android.weatherly.data.model.GetForecast;
+import com.example.android.weatherly.data.api.JSONApiHolder;
+import com.example.android.weatherly.data.model.forecastday;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +36,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class homeFragment extends Fragment {
+public class HomeFragment
+        extends Fragment {
 
     Context context;
 
@@ -62,7 +65,7 @@ public class homeFragment extends Fragment {
                 .build();
 
 
-        JSONApiHolder = retrofit.create(JSONApiHolder.class);
+        JSONApiHolder = retrofit.create(com.example.android.weatherly.data.api.JSONApiHolder.class);
         currentWeatherCondition();
         forecastConditions();
 
@@ -153,7 +156,7 @@ public class homeFragment extends Fragment {
 
     private void initRecyclerViewCurrentConditions() {
         RecyclerView recyclerView = getView().findViewById(R.id.currentConditionsRecyclerView);
-        currentWeatherConditionsDataAdapter adapter = new currentWeatherConditionsDataAdapter(getActivity(), mDayOrNight, mLocationCurrentWeatherConditions, mCurrentTemperature, mMaxTemperature, mMinTemperature, mCurrentWeatherCondition, mCurrentWeatherConditionIcon, mRealFeelTemp, mSunriseTime, mSunsetTime, mPrecipitation, mHumidity, mWindSpeed, mPressure);
+        CurrentWeatherConditionsDataAdapter adapter = new CurrentWeatherConditionsDataAdapter(getActivity(), mDayOrNight, mLocationCurrentWeatherConditions, mCurrentTemperature, mMaxTemperature, mMinTemperature, mCurrentWeatherCondition, mCurrentWeatherConditionIcon, mRealFeelTemp, mSunriseTime, mSunsetTime, mPrecipitation, mHumidity, mWindSpeed, mPressure);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -161,7 +164,7 @@ public class homeFragment extends Fragment {
 
     private void initRecyclerViewForecast() {
         RecyclerView recyclerView = getView().findViewById(R.id.forecastRecyclerView);
-        forecastDataAdapter adapter = new forecastDataAdapter(getActivity(), mDayOfTheWeek, mMinTemp, mMaxTemp, mForecastIcon);
+        ForecastDataAdapter adapter = new ForecastDataAdapter(getActivity(), mDayOfTheWeek, mMinTemp, mMaxTemp, mForecastIcon);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -282,12 +285,12 @@ public class homeFragment extends Fragment {
                     mMinTemp.add(post.getDay().getMinTempC());
                     mMaxTemp.add(post.getDay().getMaxTempC());
                     mForecastIcon.add(post.getDay().getCondition().getImageIconURL());
-                    initRecyclerViewForecast();
-                    mSwipeRefreshLayout.setRefreshing(false);
-
-
                 }
 
+                if (getView() != null) {
+                    initRecyclerViewForecast();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
             }
 
             @Override
@@ -297,13 +300,15 @@ public class homeFragment extends Fragment {
                 } else {
                 }
                 Log.d(TAG, "Code: " + t.getMessage());
-                mSwipeRefreshLayout.setRefreshing(false);
+
+                if (getView() != null) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
 
             }
 
         });
     }
-
 
     public String getDayOfWeek(String date) {
         String yearS = date.substring(0, 4);

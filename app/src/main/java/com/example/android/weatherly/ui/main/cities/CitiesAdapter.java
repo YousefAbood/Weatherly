@@ -1,4 +1,4 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.ui.main.cities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,32 +6,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.weatherly.R;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class citiesAdapter extends RecyclerView.Adapter<citiesAdapter.ViewHolder>{
+public class CitiesAdapter
+        extends RecyclerView.Adapter<CitiesAdapter.ViewHolder>{
 
     private static final String TAG = "citiesAdapter";
     Context context;
-    ArrayList<String> citiesList;
+    List<String> citiesList = Collections.emptyList();
 
-    public citiesAdapter(Context context, ArrayList<String> citiesList) {
+    public CitiesAdapter(Context context) {
         this.context = context;
+    }
+
+    public void updateData(List<String> citiesList) {
         this.citiesList = citiesList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public citiesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CitiesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.cities_recyclerview_layout, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull citiesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CitiesAdapter.ViewHolder holder, int position) {
         holder.cityName.setText(citiesList.get(position));
     }
 

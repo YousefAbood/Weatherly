@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#094479"
     android:scrollbars="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
 
     <!--    <ImageView-->

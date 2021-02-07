@@ -1,4 +1,4 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.app.location;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 public class GPSLocation extends Service implements LocationListener {
@@ -206,11 +207,18 @@ public class GPSLocation extends Service implements LocationListener {
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
+    public void onProviderEnabled(@NonNull String provider) {
+
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    @SuppressWarnings("deprecation") // Fix crash below API 26
+    public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
     @Override

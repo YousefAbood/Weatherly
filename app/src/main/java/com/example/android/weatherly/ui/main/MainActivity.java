@@ -1,49 +1,19 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.ui.main;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
-
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+import com.example.android.weatherly.R;
+import com.example.android.weatherly.ui.main.search.SearchCitiesFragment;
+import com.example.android.weatherly.ui.main.cities.CitiesFragment;
+import com.example.android.weatherly.ui.main.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -83,63 +53,65 @@ public class MainActivity extends AppCompatActivity{
 //
 //    // Swipe To Refresh
 //    SwipeRefreshLayout mSwipeRefreshLayout;
+    private int selectedItemId = R.id.nav_home;
 
-
-
+    private BottomNavigationView bottomNav;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCities);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        // -----
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new homeFragment()).commit();
+                    new HomeFragment()).commit();
+        } else {
+            selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.nav_home);
         }
-
-        // Receive info
-
-
-
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selectedItemId", selectedItemId);
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (selectedItemId != R.id.nav_home) {
+            bottomNav.setSelectedItemId(R.id.nav_home);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
 
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    selectedItemId = item.getItemId();
+
                     Fragment selectedFragment = null;
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-                            selectedFragment = new homeFragment();
+                            selectedFragment = new HomeFragment();
                             break;
                         case R.id.nav_cities:
-                            selectedFragment = new citiesFragment();
-//                            Bundle bundle = new Bundle();
-//
-////                            bundle.putString("cityName", getIntent().getStringExtra("cityName"));
-//                            String cityNameMA = getIntent().getStringExtra("cityName");
-//                            selectedFragment.setArguments(bundle);
-//
-//                            Log.d(TAG, "bundle thing " + cityNameMA);
+                            selectedFragment = new CitiesFragment();
                             break;
                         case R.id.nav_search:
-                            selectedFragment = new searchCitiesFragment();
+                            selectedFragment = new SearchCitiesFragment();
                             break;
-
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
+                                                                           selectedFragment).commit();
+
                     return true;
                 }
             };

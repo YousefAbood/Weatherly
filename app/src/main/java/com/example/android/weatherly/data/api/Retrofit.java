@@ -1,4 +1,4 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.data.api;
 
 import retrofit2.Retrofit.Builder;
 import retrofit2.converter.gson.GsonConverterFactory;

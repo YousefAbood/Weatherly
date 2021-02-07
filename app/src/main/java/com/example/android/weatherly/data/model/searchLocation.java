@@ -1,4 +1,4 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

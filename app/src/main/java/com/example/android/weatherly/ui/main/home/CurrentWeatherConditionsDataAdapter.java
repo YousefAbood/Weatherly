@@ -1,4 +1,4 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.ui.main.home;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,12 +12,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.android.weatherly.R;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<currentWeatherConditionsDataAdapter.ViewHolder> {
+public class CurrentWeatherConditionsDataAdapter
+        extends RecyclerView.Adapter<CurrentWeatherConditionsDataAdapter.ViewHolder> {
 
     private static final String TAG = "currentWeatherAdapter";
     private Context context;
@@ -69,7 +71,7 @@ public class currentWeatherConditionsDataAdapter extends RecyclerView.Adapter<cu
 //        this.mPressure = mPressure;
 //    }
 
-    public currentWeatherConditionsDataAdapter(Context context,
+    public CurrentWeatherConditionsDataAdapter(Context context,
                                                ArrayList<String> mDayOrNight,
                                                ArrayList<String> mLocationCurrentWeatherConditions,
                                                ArrayList<String> mCurrentTemperature,
