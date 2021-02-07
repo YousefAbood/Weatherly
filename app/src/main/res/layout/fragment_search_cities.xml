@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayoutFragmentSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".searchCitiesFragment">
+    tools:context=".ui.main.search.SearchCitiesFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarSearch"

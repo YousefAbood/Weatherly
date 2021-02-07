@@ -1,4 +1,4 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.ui.main.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.android.weatherly.R;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class forecastDataAdapter extends RecyclerView.Adapter<forecastDataAdapter.ViewHolder> {
+public class ForecastDataAdapter
+        extends RecyclerView.Adapter<ForecastDataAdapter.ViewHolder> {
 
     private static final String TAG = "forecastDataAdapter";
     private Context context;
@@ -25,7 +27,7 @@ public class forecastDataAdapter extends RecyclerView.Adapter<forecastDataAdapte
     private ArrayList<String> forecastIcon;
 
 
-    public forecastDataAdapter(Context context, ArrayList<String> dayOfTheWeek, ArrayList<String> minTemp, ArrayList<String> maxTemp, ArrayList<String> currentWeatherConditionIcon) {
+    public ForecastDataAdapter(Context context, ArrayList<String> dayOfTheWeek, ArrayList<String> minTemp, ArrayList<String> maxTemp, ArrayList<String> currentWeatherConditionIcon) {
         this.context = context;
         this.dayOfTheWeek = dayOfTheWeek;
         this.minTemp = minTemp;
@@ -36,14 +38,14 @@ public class forecastDataAdapter extends RecyclerView.Adapter<forecastDataAdapte
 
     @NonNull
     @Override
-    public forecastDataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ForecastDataAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.forecast_layout, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull forecastDataAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ForecastDataAdapter.ViewHolder holder, int position) {
 
 
         if(position == 0) {

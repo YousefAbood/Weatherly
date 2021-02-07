@@ -1,10 +1,13 @@
-package com.example.android.weatherly;
+package com.example.android.weatherly.data.api;
+
+import com.example.android.weatherly.data.model.CurrentWeatherList;
+import com.example.android.weatherly.data.model.GetForecast;
+import com.example.android.weatherly.data.model.searchLocation;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JSONApiHolder {
