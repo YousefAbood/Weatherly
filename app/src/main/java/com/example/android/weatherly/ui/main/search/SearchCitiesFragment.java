@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +26,7 @@ import com.example.android.weatherly.R;
 import com.example.android.weatherly.data.api.JSONApiHolder;
 import com.example.android.weatherly.data.model.searchLocation;
 import com.example.android.weatherly.ui.main.MainViewModel;
+import com.example.android.weatherly.ui.main.cities.CitiesFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,6 +70,7 @@ public class SearchCitiesFragment
                 .build();
 
         JSONApiHolder = retrofit.create(JSONApiHolder.class);
+
     }
 
     @Override
@@ -95,6 +99,7 @@ public class SearchCitiesFragment
             }
 
         });
+
 
         initRecyclerViewSearchResults();
     }
@@ -190,5 +195,14 @@ public class SearchCitiesFragment
             alertDialog.dismiss();
             alertDialog = null;
         }
+    }
+
+    public void refreshFragment() {
+        Fragment fragment = new SearchCitiesFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

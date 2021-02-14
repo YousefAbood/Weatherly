@@ -2,6 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/citiesRVLayout"
+    android:background="@drawable/cities_recycler_view_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,12 +14,176 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="@font/averia_gruesa_libre"
         android:text="Almere Stad"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:textColor="#f5e9dc"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/currentWeatherConditionsCityTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Cloudy"
+        android:textColor="#f5e9dc"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityNameRVLayout" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/currentWeatherConditionsCitiesIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintStart_toEndOf="@+id/currentWeatherConditionsCityTV"
+        app:layout_constraintTop_toBottomOf="@+id/cityNameRVLayout" />
+
+    <TextView
+        android:id="@+id/maxTemperatureCities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="24dp"
+        android:text="-4.2°"
+        android:textColor="#f5e9dc"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/cityNameRVLayout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/minTemperatureCities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        android:text="-8.8°"
+        android:textColor="#f5e9dc"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/maxTemperatureCities"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/precipitationCities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Precipitation"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/windSpeedCities"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentWeatherConditionsCityTV" />
+
+    <TextView
+        android:id="@+id/windSpeedCities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Wind Speed"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/precipitationPercentageCities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="100%"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/precipitationCities"
+        app:layout_constraintStart_toEndOf="@+id/precipitationCities" />
+
+    <TextView
+        android:id="@+id/windSpeedNumberCities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12 km/h"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/windSpeedCities"
+        app:layout_constraintStart_toStartOf="@+id/precipitationPercentageCities" />
+
+    <TextView
+        android:id="@+id/humidityCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/pressureCity"
+        app:layout_constraintTop_toTopOf="@+id/precipitationCities" />
+
+    <TextView
+        android:id="@+id/pressureCityNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="1022 hPa"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/pressureCity"
+        app:layout_constraintTop_toTopOf="@+id/windSpeedCities" />
+
+    <TextView
+        android:id="@+id/humidityCityPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:text="100%"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/humidityCity"
+        app:layout_constraintTop_toTopOf="@+id/precipitationCities" />
+
+    <TextView
+        android:id="@+id/pressureCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:text="Pressure"
+        android:textColor="#f5e9dc"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/windSpeedNumberCities"
+        app:layout_constraintTop_toTopOf="@+id/windSpeedCities" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/maxTemperatureCities"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/upicon" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/minTemperatureCities"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/downicon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

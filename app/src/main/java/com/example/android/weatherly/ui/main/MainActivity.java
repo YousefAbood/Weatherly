@@ -6,7 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.android.weatherly.R;
@@ -14,48 +19,26 @@ import com.example.android.weatherly.ui.main.search.SearchCitiesFragment;
 import com.example.android.weatherly.ui.main.cities.CitiesFragment;
 import com.example.android.weatherly.ui.main.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
-//    private JSONApiHolder JSONApiHolder;
-//
-//    // Longitude & Latitude
-//    String longitudeS, latitudeS;
-//
-//    // Current Weather Condition DataAdapter Parameters
-//    public ArrayList<String> mDayOrNight = new ArrayList<>();
-//    public ArrayList<String> mLocationCurrentWeatherConditions = new ArrayList<>();
-//    public ArrayList<String> mCurrentTemperature = new ArrayList<>();
-//    public ArrayList<String> mMaxTemperature = new ArrayList<>();
-//    public ArrayList<String> mMinTemperature = new ArrayList<>();
-//    public ArrayList<String> mCurrentWeatherCondition = new ArrayList<>();
-//    public ArrayList<String> mRealFeelTemp = new ArrayList<>();
-//    public ArrayList<String> mCurrentWeatherConditionIcon = new ArrayList<>();
-//    public ArrayList<String> mSunriseTime = new ArrayList<>();
-//    public ArrayList<String> mSunsetTime = new ArrayList<>();
-//    public ArrayList<String> mPrecipitation = new ArrayList<>();
-//    public ArrayList<String> mHumidity = new ArrayList<>();
-//    public ArrayList<String> mWindSpeed = new ArrayList<>();
-//    public ArrayList<String> mPressure = new ArrayList<>();
-//
-//
-//
-//    // Forecast DataAdapter Parameters
-//    public ArrayList<String> mDayOfTheWeek = new ArrayList<>();
-//    public ArrayList<String> mMaxTemp = new ArrayList<>();
-//    public ArrayList<String> mMinTemp = new ArrayList<>();
-//    public ArrayList<String> mForecastIcon = new ArrayList<>();
-//    public int days = 5;
-//
-//    // GPS Location
-//    private GPSLocation gpsLocation;
-//
-//    // Swipe To Refresh
-//    SwipeRefreshLayout mSwipeRefreshLayout;
+    TabLayout tabLayoutMainActivity;
+    ViewPager viewPagerMainActivity;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
     private int selectedItemId = R.id.nav_home;
 
     private BottomNavigationView bottomNav;
+
+    private Fragment mHomeFragment = new HomeFragment();
+    private Fragment mCitiesFragment = new CitiesFragment();
+    private Fragment mSearchFragment = new SearchCitiesFragment();
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,58 +46,166 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCities);
         setSupportActionBar(toolbar);
 
-        bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
-        } else {
-            selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.nav_home);
+//
+
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                    new HomeFragment()).commit();
+//        } else {
+//            selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.nav_home);
+//        }
+
+
+        // BottomNavigation
+
+//        bottomNav = findViewById(R.id.bottom_navigation);
+//        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+
+        // TabLayout & ViewPager
+
+        tabLayoutMainActivity = findViewById(R.id.tabLayoutMainActivity);
+        viewPagerMainActivity = findViewById(R.id.viewPagerMainActivity);
+
+//        tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setText("Home"));
+//        tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setText("Cities"));
+//        tabLayoutMainActivity.addTab(tabLayoutMainActivity.newTab().setText("Search Cities"));
+//        tabLayoutMainActivity.setTabGravity(TabLayout.GRAVITY_FILL);
+//        adapter = new myAdapter(this,getSupportFragmentManager(), tabLayoutMainActivity.getTabCount());
+//
+//        viewPagerMainActivity.setAdapter(adapter);
+//
+//        viewPagerMainActivity.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutMainActivity));
+//
+//        tabLayoutMainActivity.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPagerMainActivity.setCurrentItem(tab.getPosition());
+//                Log.d(TAG, "onTab: " + tab.getPosition());
+//
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//                Log.d(TAG, "onTab: " + tab.getPosition());
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//                Log.d(TAG, "onTab: " + tab.getPosition());
+//
+//
+//            }
+//        });
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        // Set up the ViewPager with the sections adapter.
+        viewPagerMainActivity.setAdapter(mSectionsPagerAdapter);
+        tabLayoutMainActivity.setupWithViewPager(viewPagerMainActivity);
+
+
+
+
+    }
+
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            switch (position) {
+                case 0:
+                    fragment = new HomeFragment();
+                    break;
+                case 1:
+                    fragment = new CitiesFragment();
+                    break;
+                case 2:
+                    fragment = new SearchCitiesFragment();
+                    break;
+            }
+
+            return fragment;
+        }
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Home";
+                case 1:
+                    return "Cities";
+                case 2:
+                    return "Search Cities";
+            }
+
+            return null;
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
         }
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("selectedItemId", selectedItemId);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (selectedItemId != R.id.nav_home) {
-            bottomNav.setSelectedItemId(R.id.nav_home);
-        } else {
-            super.onBackPressed();
+    protected void onResume() {
+        super.onResume();
+        if (!(mSectionsPagerAdapter == null)) {
+            mSectionsPagerAdapter.notifyDataSetChanged();
         }
+
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
+    // Bottom Navigation
+//    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+//            new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//                @Override
+//                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                    selectedItemId = item.getItemId();
+//
+//                    Fragment selectedFragment = null;
+//                    switch (item.getItemId()) {
+//                        case R.id.nav_home:
+//                            selectedFragment = mHomeFragment;
+//                            break;
+//                        case R.id.nav_cities:
+//                            selectedFragment = mCitiesFragment;
+//                            break;
+//                        case R.id.nav_search:
+//                            selectedFragment = mSearchFragment;
+//                            break;
+//                    }
+//
+//                    return loadFragment(selectedFragment);
+//                }
+//            };
 
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    selectedItemId = item.getItemId();
 
-                    Fragment selectedFragment = null;
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case R.id.nav_cities:
-                            selectedFragment = new CitiesFragment();
-                            break;
-                        case R.id.nav_search:
-                            selectedFragment = new SearchCitiesFragment();
-                            break;
-                    }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                                                                           selectedFragment).commit();
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
 
-                    return true;
-                }
-            };
+}
 
 
     // -------------------------------
@@ -352,7 +443,7 @@ public class MainActivity extends AppCompatActivity{
 //            return "nothing";
 //        }
 //    }
-}
+
 
 
 

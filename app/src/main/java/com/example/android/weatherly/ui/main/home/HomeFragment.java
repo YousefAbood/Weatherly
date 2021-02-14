@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -23,6 +25,7 @@ import com.example.android.weatherly.app.location.GPSLocation;
 import com.example.android.weatherly.data.model.GetForecast;
 import com.example.android.weatherly.data.api.JSONApiHolder;
 import com.example.android.weatherly.data.model.forecastday;
+import com.example.android.weatherly.ui.main.cities.CitiesFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,12 +52,11 @@ public class HomeFragment
         Log.d(TAG, "onCreate: " + latitudeS + longitudeS);
 
 
-
         try {
-            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -105,11 +107,10 @@ public class HomeFragment
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+
+
         return rootView;
     }
-
-
-
 
 
     // Main Activity
@@ -137,13 +138,11 @@ public class HomeFragment
     public ArrayList<String> mPressure = new ArrayList<>();
 
 
-
     // Forecast DataAdapter Parameters
     public ArrayList<String> mDayOfTheWeek = new ArrayList<>();
     public ArrayList<String> mMaxTemp = new ArrayList<>();
     public ArrayList<String> mMinTemp = new ArrayList<>();
     public ArrayList<String> mForecastIcon = new ArrayList<>();
-    public int days = 5;
 
     // GPS Location
     private GPSLocation gpsLocation;
@@ -197,7 +196,6 @@ public class HomeFragment
                 mHumidity.clear();
                 mWindSpeed.clear();
                 mPressure.clear();
-
 
 
                 dayDate.setText(getDayOfWeek(currentWeatherLists.getCurrent().getDate()));
@@ -385,4 +383,15 @@ public class HomeFragment
             return "nothing";
         }
     }
+
+
+    public void refreshFragment() {
+        Fragment fragment = new HomeFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }

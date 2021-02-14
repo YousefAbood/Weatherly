@@ -9,9 +9,15 @@ public class locationAPI {
     @Expose
     public String cityName;
 
+    @SerializedName("region")
+    @Expose
+    public String regionName;
+
     @SerializedName("country")
     @Expose
     public String countryName;
+
+
 
     public String getCityName() {
         return cityName;
@@ -22,7 +28,7 @@ public class locationAPI {
     }
 
     public String getCityAndCountryName() {
-        String cityAndCountry = cityName + ", " + countryName;
+        String cityAndCountry = cityName + ", " + regionName + ", " + countryName;
         return cityAndCountry;
     }
 }
