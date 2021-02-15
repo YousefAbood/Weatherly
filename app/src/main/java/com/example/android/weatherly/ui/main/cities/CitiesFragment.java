@@ -1,8 +1,6 @@
 package com.example.android.weatherly.ui.main.cities;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -10,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -197,6 +197,7 @@ public class CitiesFragment
                     public void onClick(DialogInterface dialog, int which) {
                         mainViewModel.removeCityName(cityName);
                         alertDialog = null;
+                        refreshFragment();
                         dialog.dismiss();
                     }
                 })
@@ -224,14 +225,14 @@ public class CitiesFragment
     }
 
 
-//    public void refreshFragment() {
-//        Fragment fragment = new CitiesFragment();
-//        FragmentManager fragmentManager = getActivity().getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_container, fragment);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
-//    }
+    public void refreshFragment() {
+        Fragment fragment = new CitiesFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 //
 //
 //    @Override
