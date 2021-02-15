@@ -94,6 +94,9 @@ public class SearchCitiesFragment
             @Override
             public boolean onQueryTextChange(String newText) {
                 //    adapter.getFilter().filter(newText);
+                if ("".equals(newText)) {
+                    mSearchViewResult.setValue(Collections.emptyList());
+                }
                 getSearchCityResults(newText);
                 return false;
             }

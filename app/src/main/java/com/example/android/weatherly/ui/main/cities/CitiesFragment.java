@@ -86,6 +86,9 @@ public class CitiesFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
+
         RecyclerView recyclerView = view.findViewById(R.id.citiesRecyclerView);
 
         adapter = new CitiesAdapter(getActivity(), this);
@@ -104,6 +107,16 @@ public class CitiesFragment
 
 
             Log.d(TAG, "onViewCreated: -------------------------------");
+
+            mCountryName.clear();
+            mCurrentWeatherConditionsCitiesFrag.clear();
+            mCurrentWeatherConditionIconCitiesFrag.clear();
+            mMinTemperatureCitiesFrag.clear();
+            mMaxTemperatureCitiesFrag.clear();
+            mPrecipitaionCitiesFrag.clear();
+            mWindSpeedCitiesFrag.clear();
+            mHumidityCitiesFrag.clear();
+            mPressureCitiesFrag.clear();
 
             for(int i = 0; i < data.size(); i++) {
 
