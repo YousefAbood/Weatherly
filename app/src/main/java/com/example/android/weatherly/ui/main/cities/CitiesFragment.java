@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.View;
@@ -51,9 +52,9 @@ public class CitiesFragment
     private AlertDialog alertDialog = null;
 
     CitiesAdapter adapter;
-
-
     JSONApiHolder JSONApiHolder;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     public ArrayList<String> mCountryName = new ArrayList<>();
     public ArrayList<String> mCurrentWeatherConditionsCitiesFrag = new ArrayList<>();
@@ -86,6 +87,20 @@ public class CitiesFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Swipe to Refresh Layout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.citiesFragmentSwipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshFragment();
+
+            }
+        });
+        // Configure the refreshing colors
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
 
 
@@ -176,6 +191,8 @@ public class CitiesFragment
                         Log.d(TAG, "onViewCreated: -------------------------------");
                         adapter.updateData(mCountryName, mCurrentWeatherConditionsCitiesFrag, mCurrentWeatherConditionIconCitiesFrag, mMinTemperatureCitiesFrag, mMaxTemperatureCitiesFrag, mPrecipitaionCitiesFrag, mWindSpeedCitiesFrag, mHumidityCitiesFrag, mPressureCitiesFrag);
                         Log.d(TAG, "onViewCreated: " + "finished");
+                        mSwipeRefreshLayout.setRefreshing(false);
+
                     }
 
                     @Override
@@ -185,6 +202,8 @@ public class CitiesFragment
                         }
 
                         Log.d(TAG, "Code: " + t.getMessage());
+                        mSwipeRefreshLayout.setRefreshing(false);
+
                     }
 
 
@@ -194,6 +213,7 @@ public class CitiesFragment
             }
         });
 
+        mSwipeRefreshLayout.setRefreshing(false);
 
     }
 
