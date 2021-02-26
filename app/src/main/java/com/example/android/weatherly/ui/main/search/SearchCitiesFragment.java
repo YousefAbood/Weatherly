@@ -65,7 +65,7 @@ public class SearchCitiesFragment
         // RetroFit
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.weatherapi.com/")
+                .baseUrl("https://api.weatherapi.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
