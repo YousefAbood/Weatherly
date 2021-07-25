@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.weatherly.R;
-
-import java.util.ArrayList;
+import com.example.android.weatherly.data.model.CurrentWeatherList.CurrentWeatherList;
+import com.example.android.weatherly.data.model.GetForecast.GetForecast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,86 +23,19 @@ public class CurrentWeatherConditionsDataAdapter
         extends RecyclerView.Adapter<CurrentWeatherConditionsDataAdapter.ViewHolder> {
 
     private static final String TAG = "currentWeatherAdapter";
-    private Context context;
-    public ArrayList<String> mDayOrNight;
-    public ArrayList<String> mLocation;
-    public ArrayList<String> mCurrentTemperature;
-    public ArrayList<String> mMaxTemperature;
-    public ArrayList<String> mMinTemperature;
-    public ArrayList<String> mCurrentWeatherCondition;
-    public ArrayList<String> mRealFeelTemp;
-    public ArrayList<String> mCurrentWeatherConditionIcon;
-    public ArrayList<String> mSunriseTime;
-    public ArrayList<String> mSunsetTime;
-    public ArrayList<String> mPrecipitation;
-    public ArrayList<String> mHumidity;
-    public ArrayList<String> mWindSpeed;
-    public ArrayList<String> mPressure;
+    private final Context context;
+    private MutableLiveData<CurrentWeatherList> currentWeatherListMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<GetForecast> forecastMutableLiveData = new MutableLiveData<>();
 
 
-//    public currentWeatherConditionsDataAdapter(Context context,
-//                                               ArrayList<String> mDayOrNight,
-//                                               ArrayList<String> mLocation,
-//                                               ArrayList<String> mCurrentTemperature,
-//                                               ArrayList<String> mMaxTemperature,
-//                                               ArrayList<String> mMinTemperature,
-//                                               ArrayList<String> mCurrentWeatherCondition,
-//                                               ArrayList<String> mRealFeelTemp,
-//                                               ArrayList<String> mCurrentWeatherConditionIcon,
-//                                               ArrayList<String> mSunriseTime,
-//                                               ArrayList<String> mSunsetTime,
-//                                               ArrayList<String> mPrecipitation,
-//                                               ArrayList<String> mHumidity,
-//                                               ArrayList<String> mWindSpeed,
-//                                               ArrayList<String> mPressure) {
-//        this.context = context;
-//        this.mDayOrNight = mDayOrNight;
-//        this.mLocation = mLocation;
-//        this.mCurrentTemperature = mCurrentTemperature;
-//        this.mMaxTemperature = mMaxTemperature;
-//        this.mMinTemperature = mMinTemperature;
-//        this.mCurrentWeatherCondition = mCurrentWeatherCondition;
-//        this.mRealFeelTemp = mRealFeelTemp;
-//        this.mCurrentWeatherConditionIcon = mCurrentWeatherConditionIcon;
-//        this.mSunriseTime = mSunriseTime;
-//        this.mSunsetTime = mSunsetTime;
-//        this.mPrecipitation = mPrecipitation;
-//        this.mHumidity = mHumidity;
-//        this.mWindSpeed = mWindSpeed;
-//        this.mPressure = mPressure;
-//    }
-
-    public CurrentWeatherConditionsDataAdapter(Context context,
-                                               ArrayList<String> mDayOrNight,
-                                               ArrayList<String> mLocationCurrentWeatherConditions,
-                                               ArrayList<String> mCurrentTemperature,
-                                               ArrayList<String> mMaxTemperature,
-                                               ArrayList<String> mMinTemperature,
-                                               ArrayList<String> mCurrentWeatherCondition,
-                                               ArrayList<String> mCurrentWeatherConditionIcon,
-                                               ArrayList<String> mRealFeelTemp,
-                                               ArrayList<String> mSunriseTime,
-                                               ArrayList<String> mSunsetTime,
-                                               ArrayList<String> mPrecipitation,
-                                               ArrayList<String> mHumidity,
-                                               ArrayList<String> mWindSpeed,
-                                               ArrayList<String> mPressure) {
-
+    public CurrentWeatherConditionsDataAdapter(Context context) {
         this.context = context;
-        this.mDayOrNight = mDayOrNight;
-        this.mLocation = mLocationCurrentWeatherConditions;
-        this.mCurrentTemperature = mCurrentTemperature;
-        this.mMaxTemperature = mMaxTemperature;
-        this.mMinTemperature = mMinTemperature;
-        this.mCurrentWeatherCondition = mCurrentWeatherCondition;
-        this.mRealFeelTemp = mRealFeelTemp;
-        this.mCurrentWeatherConditionIcon = mCurrentWeatherConditionIcon;
-        this.mSunriseTime = mSunriseTime;
-        this.mSunsetTime = mSunsetTime;
-        this.mPrecipitation = mPrecipitation;
-        this.mHumidity = mHumidity;
-        this.mWindSpeed = mWindSpeed;
-        this.mPressure = mPressure;
+    }
+
+    public void updateData(MutableLiveData<CurrentWeatherList> currentWeatherListMutableLiveData, MutableLiveData<GetForecast> forecastMutableLiveData) {
+        this.currentWeatherListMutableLiveData = currentWeatherListMutableLiveData;
+        this.forecastMutableLiveData = forecastMutableLiveData;
+        notifyDataSetChanged();
     }
 
 
@@ -117,28 +51,36 @@ public class CurrentWeatherConditionsDataAdapter
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
+        CurrentWeatherList currentWeatherList = currentWeatherListMutableLiveData.getValue();
+        GetForecast getForecast = forecastMutableLiveData.getValue();
+
+
+
         Glide.with(context)
                 .asBitmap()
-                .load(mCurrentWeatherConditionIcon.get((position)))
+                .load("https:" + currentWeatherList.getCurrent().getCondition().getIcon())
                 .into(holder.current_weather_condition_icon);
 
 
-        holder.day_or_night.setText(mDayOrNight.get(position));
-        holder.location.setText(mLocation.get(position));
-        holder.currentTemperature.setText(mCurrentTemperature.get(position));
-        Log.d(TAG, "onBindViewHolder: " + mMaxTemperature.size());
-        holder.maxTemperature.setText(mMaxTemperature.get(position));
-        holder.minTemperature.setText(mMinTemperature.get(position));
-        holder.weatherCondition.setText(mCurrentWeatherCondition.get(position));
-        holder.real_feel_temp.setText(mRealFeelTemp.get(position));
+
+
+        holder.location.setText(currentWeatherList.getLocation().getName() + ", " + currentWeatherList.getLocation().getCountry());
+        holder.currentTemperature.setText(String.valueOf(currentWeatherList.getCurrent().getTempC()));
+//        Log.d(TAG, "onBindViewHolder: " + mMaxTemperature.size());
+
+        holder.minTemperature.setText(String.valueOf(getForecast.getForecast().getForecastday().get(position).getDay().getMintempC()));
+        holder.maxTemperature.setText(String.valueOf(getForecast.getForecast().getForecastday().get(position).getDay().getMaxtempC()));
+
+        holder.weatherCondition.setText(currentWeatherList.getCurrent().getCondition().getText());
+        holder.real_feel_temp.setText(String.valueOf(currentWeatherList.getCurrent().getFeelslikeC()));
 
         // -----
-        holder.sunrise.setText(mSunriseTime.get(position));
-        holder.sunset.setText(mSunsetTime.get(position));
-        holder.precipitation.setText(mPrecipitation.get(position));
-        holder.humidity.setText(mHumidity.get(position));
-        holder.wind_speed.setText(mWindSpeed.get(position));
-        holder.pressure.setText(mPressure.get(position));
+        holder.sunrise.setText(getForecast.getForecast().getForecastday().get(position).getAstro().getSunrise());
+        holder.sunset.setText(getForecast.getForecast().getForecastday().get(position).getAstro().getSunset());
+        holder.precipitation.setText(currentWeatherList.getCurrent().getPrecipMm() + "%");
+        holder.humidity.setText(currentWeatherList.getCurrent().getHumidity() + "%");
+        holder.wind_speed.setText(currentWeatherList.getCurrent().getWindKph() + " km/h");
+        holder.pressure.setText(currentWeatherList.getCurrent().getPressureMb() + " hPa");
 
 
 
@@ -156,13 +98,13 @@ public class CurrentWeatherConditionsDataAdapter
 
     @Override
     public int getItemCount() {
-        return mCurrentTemperature.size();
+        return 1;
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView currentTemperature, weatherCondition, day_or_night, location, real_feel_temp, minTemperature, maxTemperature, sunrise, sunset, precipitation, humidity, wind_speed, pressure;
+        TextView currentTemperature, weatherCondition, location, real_feel_temp, minTemperature, maxTemperature, sunrise, sunset, precipitation, humidity, wind_speed, pressure;
         CircleImageView current_weather_condition_icon;
         ConstraintLayout parentLayoutCurrentWeatherConditions;
 
@@ -170,7 +112,6 @@ public class CurrentWeatherConditionsDataAdapter
             super(itemView);
             // Connecting ID of the Current Weather Conditions Layout components with the Adapter to inflate them
             parentLayoutCurrentWeatherConditions = itemView.findViewById(R.id.parentLayoutCurrentWeatherConditions);
-            day_or_night = itemView.findViewById(R.id.day_or_night);
             location = itemView.findViewById(R.id.locationAPI);
             currentTemperature = itemView.findViewById(R.id.currentTemperature);
             maxTemperature = itemView.findViewById(R.id.maxTempCurrentWeatherConditionsLayout);

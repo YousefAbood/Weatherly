@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.weatherly.R;
-
-import java.util.ArrayList;
+import com.example.android.weatherly.data.model.GetForecast.GetForecast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -21,19 +21,19 @@ public class ForecastDataAdapter
 
     private static final String TAG = "forecastDataAdapter";
     private Context context;
-    private ArrayList<String> dayOfTheWeek;
-    private ArrayList<String> minTemp;
-    private ArrayList<String> maxTemp;
-    private ArrayList<String> forecastIcon;
+    private MutableLiveData<GetForecast> forecastMutableLiveData = new MutableLiveData<>();
 
 
-    public ForecastDataAdapter(Context context, ArrayList<String> dayOfTheWeek, ArrayList<String> minTemp, ArrayList<String> maxTemp, ArrayList<String> currentWeatherConditionIcon) {
+
+
+    public ForecastDataAdapter(Context context) {
         this.context = context;
-        this.dayOfTheWeek = dayOfTheWeek;
-        this.minTemp = minTemp;
-        this.maxTemp = maxTemp;
-        this.forecastIcon = currentWeatherConditionIcon;
 
+    }
+
+    public void updateData(MutableLiveData<GetForecast> forecastMutableLiveData) {
+        this.forecastMutableLiveData = forecastMutableLiveData;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -47,6 +47,9 @@ public class ForecastDataAdapter
     @Override
     public void onBindViewHolder(@NonNull ForecastDataAdapter.ViewHolder holder, int position) {
 
+        GetForecast getForecast = forecastMutableLiveData.getValue();
+        HomeFragment homeFragment = new HomeFragment();
+
 
         if(position == 0) {
             holder.itemView.setVisibility(View.GONE);
@@ -55,19 +58,19 @@ public class ForecastDataAdapter
 
             Glide.with(context)
                     .asBitmap()
-                    .load(forecastIcon.get((position)))
+                    .load("https:" + getForecast.getForecast().getForecastday().get(position).getDay().getCondition().getIcon())
                     .into(holder.forecastIcon);
 
-            holder.dayOfTheWeek.setText(dayOfTheWeek.get(position));
-            holder.minTemp.setText(minTemp.get(position));
-            holder.maxTemp.setText(maxTemp.get(position));
+            holder.dayOfTheWeek.setText(homeFragment.getDayOfWeek(getForecast.getForecast().getForecastday().get(position).getDate()));
+            holder.minTemp.setText(String.valueOf(getForecast.getForecast().getForecastday().get(position).getDay().getMintempC()));
+            holder.maxTemp.setText(String.valueOf(getForecast.getForecast().getForecastday().get(position).getDay().getMaxtempC()));
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return minTemp.size();
+        return 3;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -86,4 +89,5 @@ public class ForecastDataAdapter
         }
 
      }
+
 }

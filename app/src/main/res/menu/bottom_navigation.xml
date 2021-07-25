@@ -3,17 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/baseline_house_black_24"
         android:title="Home" />
 
     <item
-        android:id="@+id/nav_cities"
+        android:id="@+id/citiesFragment"
         android:icon="@drawable/baseline_apartment_black_24"
         android:title="Cities" />
 
     <item
-        android:id="@+id/nav_search"
+        android:id="@+id/searchCitiesFragment"
         android:icon="@drawable/baseline_search_black_24"
         android:title="Search Cities" />
 

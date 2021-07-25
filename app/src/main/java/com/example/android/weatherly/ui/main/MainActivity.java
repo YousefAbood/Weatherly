@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -27,82 +31,31 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
-    TabLayout tabLayoutMainActivity;
-    ViewPager viewPagerMainActivity;
-
-    private int selectedItemId = R.id.nav_home;
-
-    private BottomNavigationView bottomNav;
-
-    private Fragment mHomeFragment = new HomeFragment();
-    private Fragment mCitiesFragment = new CitiesFragment();
-    private Fragment mSearchFragment = new SearchCitiesFragment();
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarCities);
-        setSupportActionBar(toolbar);
 
 
-//
+        BottomNavigationView mBottomNavigation =  findViewById(R.id.bottom_navigation);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
-        } else {
-            selectedItemId = savedInstanceState.getInt("selectedItemId", R.id.nav_home);
+        final NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+
+        final NavController navController;
+
+        if(navHostFragment != null) {
+
+            navController = navHostFragment.getNavController();
+
+            NavigationUI.setupWithNavController(mBottomNavigation, navController);
         }
 
 
-        // BottomNavigation
-
-        bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
 
 
 
-//     Bottom Navigation
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    selectedItemId = item.getItemId();
-
-                    Fragment selectedFragment = null;
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                            selectedFragment = mHomeFragment;
-                            break;
-                        case R.id.nav_cities:
-                            selectedFragment = mCitiesFragment;
-                            break;
-                        case R.id.nav_search:
-                            selectedFragment = mSearchFragment;
-                            break;
-                    }
-
-                    return loadFragment(selectedFragment);
-                }
-            };
-
-
-
-    private boolean loadFragment(Fragment fragment) {
-        //switching fragment
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
-            return true;
-        }
-        return false;
-    }
 
 }
 

@@ -122,12 +122,7 @@ public class SearchCitiesFragment
                 DividerItemDecoration.VERTICAL));
 
 
-        mSearchViewResult.observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                adapter.updateData(strings);
-            }
-        });
+        mSearchViewResult.observe(getViewLifecycleOwner(), strings -> adapter.updateData(strings));
     }
 
     private void getSearchCityResults(String cityName) {

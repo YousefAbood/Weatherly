@@ -31,22 +31,6 @@
         app:layout_constraintStart_toEndOf="@+id/weatherCondition" />
 
     <TextView
-        android:id="@+id/day_or_night"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/averia_gruesa_libre"
-        android:text="Day"
-        android:textSize="18sp"
-        android:textColor="#f5e9dc"
-        app:layout_constraintBottom_toTopOf="@+id/locationAPI"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/locationAPI"
         android:layout_width="256dp"
         android:layout_height="wrap_content"

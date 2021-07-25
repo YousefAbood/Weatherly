@@ -8,9 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,7 +19,7 @@ import android.view.View;
 
 import com.example.android.weatherly.R;
 import com.example.android.weatherly.data.api.JSONApiHolder;
-import com.example.android.weatherly.data.model.CurrentWeatherList;
+import com.example.android.weatherly.data.model.CurrentWeatherList.CurrentWeatherList;
 import com.example.android.weatherly.itemDecorator.SpacingItemDecorator;
 import com.example.android.weatherly.ui.main.MainViewModel;
 
@@ -153,45 +152,45 @@ public class CitiesFragment
 
 
 
-                        CurrentWeatherList currentWeatherLists = response.body();
-
-                        currentWeatherLists.getLocationAPI().getCityAndCountryName();
-
-                        Log.d(TAG, "onViewCreated: " + mCurrentWeatherConditionIconCitiesFrag.size());
-
-
-                        mCountryName.add(currentWeatherLists.getLocationAPI().getCityAndCountryName());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getLocationAPI().getCityAndCountryName());
-
-                        mCurrentWeatherConditionsCitiesFrag.add(currentWeatherLists.getCurrent().getCondition().getWeatherCondition());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getCondition().getWeatherCondition());
-
-                        mCurrentWeatherConditionIconCitiesFrag.add(currentWeatherLists.getCurrent().getCondition().getImageIconURL());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getCondition().getImageIconURL());
-
-                        mMaxTemperatureCitiesFrag.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
-
-                        mMinTemperatureCitiesFrag.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
-
-                        mPrecipitaionCitiesFrag.add(currentWeatherLists.getCurrent().getPrecipMM());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getPrecipMM());
-
-                        mWindSpeedCitiesFrag.add(currentWeatherLists.getCurrent().getWindSpeedKPH());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getWindSpeedKPH());
-
-                        mHumidityCitiesFrag.add(currentWeatherLists.getCurrent().getHumidity());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getHumidity());
-
-                        mPressureCitiesFrag.add(currentWeatherLists.getCurrent().getPressureMB());
-                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getPressureMB());
-
-
-                        Log.d(TAG, "onViewCreated: -------------------------------");
-                        adapter.updateData(mCountryName, mCurrentWeatherConditionsCitiesFrag, mCurrentWeatherConditionIconCitiesFrag, mMinTemperatureCitiesFrag, mMaxTemperatureCitiesFrag, mPrecipitaionCitiesFrag, mWindSpeedCitiesFrag, mHumidityCitiesFrag, mPressureCitiesFrag);
-                        Log.d(TAG, "onViewCreated: " + "finished");
-                        mSwipeRefreshLayout.setRefreshing(false);
+//                        CurrentWeatherList currentWeatherLists = response.body();
+//
+//                        currentWeatherLists.getLocationAPI().getCityAndCountryName();
+//
+//                        Log.d(TAG, "onViewCreated: " + mCurrentWeatherConditionIconCitiesFrag.size());
+//
+//
+//                        mCountryName.add(currentWeatherLists.getLocationAPI().getCityAndCountryName());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getLocationAPI().getCityAndCountryName());
+//
+//                        mCurrentWeatherConditionsCitiesFrag.add(currentWeatherLists.getCurrent().getCondition().getWeatherCondition());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getCondition().getWeatherCondition());
+//
+//                        mCurrentWeatherConditionIconCitiesFrag.add(currentWeatherLists.getCurrent().getCondition().getImageIconURL());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getCondition().getImageIconURL());
+//
+//                        mMaxTemperatureCitiesFrag.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
+//
+//                        mMinTemperatureCitiesFrag.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
+//
+//                        mPrecipitaionCitiesFrag.add(currentWeatherLists.getCurrent().getPrecipMM());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getPrecipMM());
+//
+//                        mWindSpeedCitiesFrag.add(currentWeatherLists.getCurrent().getWindSpeedKPH());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getWindSpeedKPH());
+//
+//                        mHumidityCitiesFrag.add(currentWeatherLists.getCurrent().getHumidity());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getHumidity());
+//
+//                        mPressureCitiesFrag.add(currentWeatherLists.getCurrent().getPressureMB());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getPressureMB());
+//
+//
+//                        Log.d(TAG, "onViewCreated: -------------------------------");
+//                        adapter.updateData(mCountryName, mCurrentWeatherConditionsCitiesFrag, mCurrentWeatherConditionIconCitiesFrag, mMinTemperatureCitiesFrag, mMaxTemperatureCitiesFrag, mPrecipitaionCitiesFrag, mWindSpeedCitiesFrag, mHumidityCitiesFrag, mPressureCitiesFrag);
+//                        Log.d(TAG, "onViewCreated: " + "finished");
+//                        mSwipeRefreshLayout.setRefreshing(false);
 
                     }
 
@@ -259,18 +258,7 @@ public class CitiesFragment
 
 
     public void refreshFragment() {
-        Fragment fragment = new CitiesFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Navigation.findNavController(getView()).navigate(R.id.action_citiesFragment_self);
     }
-//
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        refreshFragment();
-//    }
+
 }
