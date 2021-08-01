@@ -3,7 +3,7 @@ package com.example.android.weatherly.ui.main.home;
 import android.util.Log;
 
 import com.example.android.weatherly.data.api.JSONApiHolder;
-import com.example.android.weatherly.data.model.GetForecast.GetForecast;
+import com.example.android.weatherly.data.model.Forecast.GetForecast;
 
 import java.io.IOException;
 
@@ -34,8 +34,10 @@ public class ForecastRepo {
     }
 
     public void getForecast(String destination, int days) {
+        Log.d(TAG, "initRecyclerViewCurrentConditionsForecast: ");
 
-        Call<GetForecast> call = jsonApiHolder.getForecast(destination, days);
+
+        Call<GetForecast> call = jsonApiHolder.getForecastAPI(destination, days);
 
         call.enqueue(new Callback<GetForecast>() {
             @Override
@@ -46,9 +48,14 @@ public class ForecastRepo {
                 }
 
 
+
+
                 GetForecast getForecast = response.body();
 
+                Log.d(TAG, "initRecyclerViewCurrentConditionsForecastTTT: " );
+
                 mForecastBehaviourSubject.onNext(getForecast);
+
             }
 
             @Override
@@ -57,13 +64,16 @@ public class ForecastRepo {
                     Log.e(TAG, "onFailure: " + t);
                 }
 
+                Log.d(TAG, "onFailure: ");
             }
         });
 
     }
 
 
-    public BehaviorSubject<GetForecast> getmForecastBehaviourSubject() {
+    public BehaviorSubject<GetForecast> getmForecastBehaviourSubjectRepo() {
         return mForecastBehaviourSubject;
     }
+
+
 }

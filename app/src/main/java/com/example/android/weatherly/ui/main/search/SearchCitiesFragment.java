@@ -1,7 +1,6 @@
 package com.example.android.weatherly.ui.main.search;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +24,6 @@ import com.example.android.weatherly.R;
 import com.example.android.weatherly.data.api.JSONApiHolder;
 import com.example.android.weatherly.data.model.searchLocation;
 import com.example.android.weatherly.ui.main.MainViewModel;
-import com.example.android.weatherly.ui.main.cities.CitiesFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,7 +123,7 @@ public class SearchCitiesFragment
     }
 
     private void getSearchCityResults(String cityName) {
-        Call<List<searchLocation>> call = JSONApiHolder.getSearchLocation(cityName);
+        Call<List<searchLocation>> call = JSONApiHolder.getSearchLocationAPI(cityName);
 
         call.enqueue(new Callback<List<searchLocation>>() {
             @Override

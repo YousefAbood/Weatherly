@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.android.weatherly.data.model.CurrentWeatherList.CurrentWeatherList;
-import com.example.android.weatherly.data.model.GetForecast.GetForecast;
+import com.example.android.weatherly.data.model.Forecast.GetForecast;
 import com.example.android.weatherly.data.model.searchLocation;
 import com.example.android.weatherly.ui.main.home.CurrentWeatherRepo;
 import com.example.android.weatherly.ui.main.home.ForecastRepo;
@@ -94,17 +94,17 @@ public class MainViewModel extends AndroidViewModel {
     public void CurrentForecast(String destination, int days) {
         CurrentWeatherRepo currentWeatherRepo = new CurrentWeatherRepo();
         currentWeatherRepo.getCurrentWeather(destination, days);
-        mCurrentWeatherList = currentWeatherRepo.getmCurrentWeatherList();
+        mCurrentWeatherList = currentWeatherRepo.getmCurrentWeatherListRepo();
     }
 
-    public BehaviorSubject<CurrentWeatherList> getmCurrentWeatherList() {
+    public BehaviorSubject<CurrentWeatherList> getmCurrentWeatherListBehaviourSubject() {
         return mCurrentWeatherList;
     }
 
     public void Forecast(String destination, int days) {
         ForecastRepo forecastRepo = new ForecastRepo();
         forecastRepo.getForecast(destination, days);
-        mForecastBehaviourSubject = forecastRepo.getmForecastBehaviourSubject();
+        mForecastBehaviourSubject = forecastRepo.getmForecastBehaviourSubjectRepo();
     }
 
     public BehaviorSubject<GetForecast> getmForecastBehaviourSubject() {

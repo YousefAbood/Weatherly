@@ -1,4 +1,4 @@
-package com.example.android.weatherly.data.model.GetForecast;
+package com.example.android.weatherly.data.model.Forecast;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;

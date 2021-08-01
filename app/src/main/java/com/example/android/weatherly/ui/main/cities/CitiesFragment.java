@@ -135,7 +135,7 @@ public class CitiesFragment
             for(int i = 0; i < data.size(); i++) {
 
 
-                Call<CurrentWeatherList> call = JSONApiHolder.getCurrentWeatherList(data.get(i), 1);
+                Call<CurrentWeatherList> call = JSONApiHolder.getCurrentWeatherListAPI(data.get(i), 1);
 
 //        Log.d(TAG, "onViewCreated: " + data.get(i));
                 call.enqueue(new Callback<CurrentWeatherList>() {
@@ -168,11 +168,11 @@ public class CitiesFragment
 //                        mCurrentWeatherConditionIconCitiesFrag.add(currentWeatherLists.getCurrent().getCondition().getImageIconURL());
 //                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getCondition().getImageIconURL());
 //
-//                        mMaxTemperatureCitiesFrag.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
-//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
+//                        mMaxTemperatureCitiesFrag.add(currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMaxTempC());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMaxTempC());
 //
-//                        mMinTemperatureCitiesFrag.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
-//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
+//                        mMinTemperatureCitiesFrag.add(currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMinTempC());
+//                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMinTempC());
 //
 //                        mPrecipitaionCitiesFrag.add(currentWeatherLists.getCurrent().getPrecipMM());
 //                        Log.d(TAG, "onViewCreated: " + currentWeatherLists.getCurrent().getPrecipMM());

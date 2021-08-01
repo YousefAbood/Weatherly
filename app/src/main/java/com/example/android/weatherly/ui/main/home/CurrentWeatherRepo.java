@@ -35,7 +35,7 @@ public class CurrentWeatherRepo {
 
     public void getCurrentWeather(String LatLong, int days) {
 
-        Call<CurrentWeatherList> call = jsonApiHolder.getCurrentWeatherList(LatLong, days);
+        Call<CurrentWeatherList> call = jsonApiHolder.getCurrentWeatherListAPI(LatLong, days);
 
         call.enqueue(new Callback<CurrentWeatherList>() {
             @Override
@@ -61,7 +61,7 @@ public class CurrentWeatherRepo {
     }
 
 
-    public BehaviorSubject<CurrentWeatherList> getmCurrentWeatherList() {
+    public BehaviorSubject<CurrentWeatherList> getmCurrentWeatherListRepo() {
         return mCurrentWeatherList;
     }
 }

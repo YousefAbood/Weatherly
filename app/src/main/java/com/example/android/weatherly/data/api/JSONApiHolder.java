@@ -1,7 +1,7 @@
 package com.example.android.weatherly.data.api;
 
 import com.example.android.weatherly.data.model.CurrentWeatherList.CurrentWeatherList;
-import com.example.android.weatherly.data.model.GetForecast.GetForecast;
+import com.example.android.weatherly.data.model.Forecast.GetForecast;
 import com.example.android.weatherly.data.model.searchLocation;
 
 import java.util.List;
@@ -14,13 +14,13 @@ public interface JSONApiHolder {
 
 
     @GET("v1/forecast.json?key=2fc725cddfc84683bc9160939212101")
-    Call<CurrentWeatherList> getCurrentWeatherList(@Query("q") String destination, @Query("days") int days);
+    Call<CurrentWeatherList> getCurrentWeatherListAPI(@Query("q") String destination, @Query("days") int days);
 
     @GET("v1/forecast.json?key=2fc725cddfc84683bc9160939212101")
-    Call<GetForecast> getForecast(@Query("q") String destination, @Query("days") int days);
+    Call<GetForecast> getForecastAPI(@Query("q") String destination, @Query("days") int days);
 
     @GET("v1/search.json?key=2fc725cddfc84683bc9160939212101")
-    Call<List<searchLocation>> getSearchLocation(@Query("q") String cityName);
+    Call<List<searchLocation>> getSearchLocationAPI(@Query("q") String cityName);
 
 
 }

@@ -37,7 +37,7 @@ public class SearchCitiesRepo {
 
     public void getSearchLocationResults(String CityName) {
 
-        Call<List<searchLocation>> call = jsonApiHolder.getSearchLocation(CityName);
+        Call<List<searchLocation>> call = jsonApiHolder.getSearchLocationAPI(CityName);
 
         call.enqueue(new Callback<List<searchLocation>>() {
             @Override

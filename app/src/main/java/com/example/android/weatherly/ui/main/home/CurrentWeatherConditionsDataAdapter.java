@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.android.weatherly.R;
 import com.example.android.weatherly.data.model.CurrentWeatherList.CurrentWeatherList;
-import com.example.android.weatherly.data.model.GetForecast.GetForecast;
+import com.example.android.weatherly.data.model.Forecast.GetForecast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -24,7 +24,6 @@ public class CurrentWeatherConditionsDataAdapter
 
     private static final String TAG = "currentWeatherAdapter";
     private final Context context;
-    private MutableLiveData<CurrentWeatherList> currentWeatherListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<GetForecast> forecastMutableLiveData = new MutableLiveData<>();
 
 
@@ -32,8 +31,7 @@ public class CurrentWeatherConditionsDataAdapter
         this.context = context;
     }
 
-    public void updateData(MutableLiveData<CurrentWeatherList> currentWeatherListMutableLiveData, MutableLiveData<GetForecast> forecastMutableLiveData) {
-        this.currentWeatherListMutableLiveData = currentWeatherListMutableLiveData;
+    public void updateData(MutableLiveData<GetForecast> forecastMutableLiveData) {
         this.forecastMutableLiveData = forecastMutableLiveData;
         notifyDataSetChanged();
     }
@@ -51,36 +49,35 @@ public class CurrentWeatherConditionsDataAdapter
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        CurrentWeatherList currentWeatherList = currentWeatherListMutableLiveData.getValue();
         GetForecast getForecast = forecastMutableLiveData.getValue();
 
 
 
         Glide.with(context)
                 .asBitmap()
-                .load("https:" + currentWeatherList.getCurrent().getCondition().getIcon())
+                .load("https:" + getForecast.getCurrent().getCondition().getIcon())
                 .into(holder.current_weather_condition_icon);
 
 
 
 
-        holder.location.setText(currentWeatherList.getLocation().getName() + ", " + currentWeatherList.getLocation().getCountry());
-        holder.currentTemperature.setText(String.valueOf(currentWeatherList.getCurrent().getTempC()));
+        holder.location.setText(getForecast.getLocation().getName() + ", " + getForecast.getLocation().getCountry());
+        holder.currentTemperature.setText(String.valueOf(getForecast.getCurrent().getTempC()));
 //        Log.d(TAG, "onBindViewHolder: " + mMaxTemperature.size());
 
         holder.minTemperature.setText(String.valueOf(getForecast.getForecast().getForecastday().get(position).getDay().getMintempC()));
         holder.maxTemperature.setText(String.valueOf(getForecast.getForecast().getForecastday().get(position).getDay().getMaxtempC()));
 
-        holder.weatherCondition.setText(currentWeatherList.getCurrent().getCondition().getText());
-        holder.real_feel_temp.setText(String.valueOf(currentWeatherList.getCurrent().getFeelslikeC()));
+        holder.weatherCondition.setText(getForecast.getCurrent().getCondition().getText());
+        holder.real_feel_temp.setText(String.valueOf(getForecast.getCurrent().getFeelslikeC()));
 
         // -----
         holder.sunrise.setText(getForecast.getForecast().getForecastday().get(position).getAstro().getSunrise());
         holder.sunset.setText(getForecast.getForecast().getForecastday().get(position).getAstro().getSunset());
-        holder.precipitation.setText(currentWeatherList.getCurrent().getPrecipMm() + "%");
-        holder.humidity.setText(currentWeatherList.getCurrent().getHumidity() + "%");
-        holder.wind_speed.setText(currentWeatherList.getCurrent().getWindKph() + " km/h");
-        holder.pressure.setText(currentWeatherList.getCurrent().getPressureMb() + " hPa");
+        holder.precipitation.setText(getForecast.getCurrent().getPrecipMm() + "%");
+        holder.humidity.setText(getForecast.getCurrent().getHumidity() + "%");
+        holder.wind_speed.setText(getForecast.getCurrent().getWindKph() + " km/h");
+        holder.pressure.setText(getForecast.getCurrent().getPressureMb() + " hPa");
 
 
 

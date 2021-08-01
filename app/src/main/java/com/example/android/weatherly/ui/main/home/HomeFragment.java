@@ -26,7 +26,7 @@ import com.example.android.weatherly.R;
 import com.example.android.weatherly.app.location.GPSLocation;
 import com.example.android.weatherly.data.api.JSONApiHolder;
 import com.example.android.weatherly.data.model.CurrentWeatherList.CurrentWeatherList;
-import com.example.android.weatherly.data.model.GetForecast.GetForecast;
+import com.example.android.weatherly.data.model.Forecast.GetForecast;
 import com.example.android.weatherly.ui.main.MainViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -58,8 +58,8 @@ public class HomeFragment
     TextView dayDate;
 
     // Mutable LiveData
-    private MutableLiveData<CurrentWeatherList> currentWeatherListMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<GetForecast> forecastMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<CurrentWeatherList> currentWeatherListMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<GetForecast> forecastMutableLiveData = new MutableLiveData<>();
 
     // Disposable
     private CompositeDisposable mDisposable;
@@ -96,16 +96,10 @@ public class HomeFragment
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        currentWeatherCondition();
+
 
         // TextView
         dayDate = (TextView) view.findViewById(R.id.day_date);
-
-        // Toolbar Part
-//        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.homeToolbar);
-//        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        activity.setSupportActionBar(toolbar);
-//        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         // Swipe to Refresh Layout
@@ -113,7 +107,9 @@ public class HomeFragment
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mSwipeRefreshLayout.setRefreshing(true);
                 currentWeatherCondition();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -124,33 +120,32 @@ public class HomeFragment
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+
+        currentWeatherCondition();
+
     }
 
     // Main Activity
 
     private void currentWeatherCondition() {
 
-
         MainViewModel mMainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-        mMainViewModel.CurrentForecast(getLocation(), 1);
         mMainViewModel.Forecast(getLocation(), 3);
-
 
         mDisposable = new CompositeDisposable();
 
-        Disposable currentWeatherList = mMainViewModel.getmCurrentWeatherList().doOnComplete(() -> Log.d(TAG, "currentWeatherCondition: onCompleteCalled")).subscribe(v -> {
-            currentWeatherListMutableLiveData.setValue(v);
-            initRecyclerViewCurrentConditions();
-
-        });
-
         Disposable forecastList = mMainViewModel.getmForecastBehaviourSubject().doOnComplete(() -> Log.d(TAG, "currentWeatherCondition: onCompleteCalled")).subscribe(v -> {
-           forecastMutableLiveData.setValue(v);
-           initRecyclerViewForecast();
+            forecastMutableLiveData.setValue(v);
+            initRecyclerViewForecast();
+            initRecyclerViewCurrentConditions();
         });
 
-        mDisposable.add(currentWeatherList);
+
+        Log.d(TAG, "currentWeatherCondition: " + forecastMutableLiveData.getValue());
+        Log.d(TAG, "currentWeatherCondition: " + currentWeatherListMutableLiveData.getValue());
+
+
         mDisposable.add(forecastList);
 
 
@@ -164,7 +159,13 @@ public class HomeFragment
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter.updateData(currentWeatherListMutableLiveData, forecastMutableLiveData);
+//        if(forecastMutableLiveData.getValue() == null) {
+//            Log.d(TAG, "initRecyclerViewCurrentConditionsThird: " + forecastMutableLiveData.getValue());
+//            currentWeatherCondition();
+//        }
+
+
+        adapter.updateData(forecastMutableLiveData);
 
     }
 
@@ -174,6 +175,10 @@ public class HomeFragment
         ForecastDataAdapter adapter = new ForecastDataAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        if(forecastMutableLiveData.getValue() == null) {
+//            currentWeatherCondition();
+//        }
 
         adapter.updateData(forecastMutableLiveData);
 
@@ -249,6 +254,7 @@ public class HomeFragment
             String latitudeS = String.valueOf(latitude);
             String longitudeS = String.valueOf(longitude);
             String latlong = latitudeS + "," + longitudeS;
+            Log.d(TAG, "getLocation: " + latlong);
             return latlong;
         } else {
             gpsLocation.showSettingsAlert();
@@ -261,21 +267,21 @@ public class HomeFragment
         Navigation.findNavController(getView()).navigate(R.id.action_homeFragment_self);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mDisposable.dispose();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mDisposable.dispose();
-    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        mDisposable.dispose();
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        mDisposable.dispose();
+//    }
 
     //    private void currentWeatherCondition() {
 //
-//        Call<CurrentWeatherList> call = JSONApiHolder.getCurrentWeatherList(getLocation(), 1);
+//        Call<CurrentWeatherList> call = JSONApiHolder.getCurrentWeatherListAPI(getLocation(), 1);
 //
 //        call.enqueue(new Callback<CurrentWeatherList>() {
 //            public void onResponse(Call<CurrentWeatherList> call, Response<CurrentWeatherList> response) {
@@ -311,21 +317,21 @@ public class HomeFragment
 //                // -----
 //
 //                mCurrentTemperature.add(currentWeatherLists.getCurrent().getTemperatureCelcius());
-//                mMaxTemperature.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
+//                mMaxTemperature.add(currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMaxTempC());
 //
-//                Log.d(TAG, "onResponse: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMaxTempC());
+//                Log.d(TAG, "onResponse: " + currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMaxTempC());
 //                Log.d(TAG, "onResponse: " + mMaxTemperature.size());
 //
-//                Log.d(TAG, "onResponse: " + currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
+//                Log.d(TAG, "onResponse: " + currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMinTempC());
 //
-//                mMinTemperature.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getDay().getMinTempC());
+//                mMinTemperature.add(currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getDay().getMinTempC());
 //                mCurrentWeatherCondition.add(currentWeatherLists.getCurrent().getCondition().getWeatherCondition());
 //                mRealFeelTemp.add(currentWeatherLists.getCurrent().getFeelsLikeCelcius());
 //                mCurrentWeatherConditionIcon.add(currentWeatherLists.getCurrent().getCondition().getImageIconURL());
 //
 //                // -----
-//                mSunriseTime.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getAstro().getSunrise());
-//                mSunsetTime.add(currentWeatherLists.getForecast().getForecastdayList().get(0).getAstro().getSunset());
+//                mSunriseTime.add(currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getAstro().getSunrise());
+//                mSunsetTime.add(currentWeatherLists.getForecastAPI().getForecastdayList().get(0).getAstro().getSunset());
 //                mPrecipitation.add(currentWeatherLists.getCurrent().getPrecipMM());
 //                mHumidity.add(currentWeatherLists.getCurrent().getHumidity());
 //                mWindSpeed.add(currentWeatherLists.getCurrent().getWindSpeedKPH());
@@ -352,7 +358,7 @@ public class HomeFragment
 //    }
 //
 //    private void forecastConditions() {
-//        Call<GetForecast> call = JSONApiHolder.getForecast(getLocation(), 3);
+//        Call<GetForecast> call = JSONApiHolder.getForecastAPI(getLocation(), 3);
 //
 //        call.enqueue(new Callback<GetForecast>() {
 //            @Override
@@ -364,7 +370,7 @@ public class HomeFragment
 //
 //                GetForecast getForecastParent = response.body();
 //
-//                List<forecastday> forecastdaysList = getForecastParent.getForecast().getForecastdayList();
+//                List<forecastday> forecastdaysList = getForecastParent.getForecastAPI().getForecastdayList();
 //
 //
 //                mDayOfTheWeek.clear();
